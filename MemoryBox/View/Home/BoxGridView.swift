@@ -15,7 +15,10 @@ struct BoxGridView: View {
         ScrollView {
             LazyVGrid(columns: columns) {
                 ForEach(boxes) { box in
-                    BoxView(box: box)
+                    NavigationLink(destination: BoxDetailView()) {
+                        BoxView(box: box)
+                    }
+                    .buttonStyle(PlainButtonStyle())  // Prevent the default behavior of NavigationLink (e.g., blue color)
                 }
             }
         }

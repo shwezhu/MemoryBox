@@ -24,7 +24,7 @@ struct BoxView: View {
         HStack(alignment: .center) {
             Text(box.name)
                 .bold()
-                .lineLimit(1) // 添加行数限制，防止长文本溢出
+                .lineLimit(1)
             Spacer()
             Text("\(box.postCount)")
                 .font(.title2)

@@ -18,6 +18,7 @@
 		6381184C2C397FE0007DC4DC /* test.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6381184B2C397FE0007DC4DC /* test.swift */; };
 		6381184E2C3A0F97007DC4DC /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6381184D2C3A0F97007DC4DC /* HomeView.swift */; };
 		638118502C3A11E5007DC4DC /* BoxGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6381184F2C3A11E5007DC4DC /* BoxGridView.swift */; };
+		638118522C3AC533007DC4DC /* BoxDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638118512C3AC533007DC4DC /* BoxDetailView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,6 +34,7 @@
 		6381184B2C397FE0007DC4DC /* test.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = test.swift; sourceTree = "<group>"; };
 		6381184D2C3A0F97007DC4DC /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		6381184F2C3A11E5007DC4DC /* BoxGridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoxGridView.swift; sourceTree = "<group>"; };
+		638118512C3AC533007DC4DC /* BoxDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoxDetailView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -65,15 +67,13 @@
 		638118332C38C183007DC4DC /* MemoryBox */ = {
 			isa = PBXGroup;
 			children = (
-				6381184A2C397D93007DC4DC /* Model */,
-				6381184D2C3A0F97007DC4DC /* HomeView.swift */,
-				638118422C38C1D1007DC4DC /* BoxView.swift */,
-				638118342C38C183007DC4DC /* MemoryBoxApp.swift */,
+				638118532C3AC548007DC4DC /* View */,
 				638118362C38C183007DC4DC /* ContentView.swift */,
+				638118342C38C183007DC4DC /* MemoryBoxApp.swift */,
+				6381184A2C397D93007DC4DC /* Model */,
 				638118382C38C185007DC4DC /* Assets.xcassets */,
 				6381183A2C38C185007DC4DC /* Preview Content */,
 				6381184B2C397FE0007DC4DC /* test.swift */,
-				6381184F2C3A11E5007DC4DC /* BoxGridView.swift */,
 			);
 			path = MemoryBox;
 			sourceTree = "<group>";
@@ -94,6 +94,41 @@
 				638118462C397D81007DC4DC /* Post.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		638118532C3AC548007DC4DC /* View */ = {
+			isa = PBXGroup;
+			children = (
+				638118552C3AC7A0007DC4DC /* View */,
+				638118542C3AC791007DC4DC /* Home */,
+				638118562C3AC7C6007DC4DC /* BoxDetail */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		638118542C3AC791007DC4DC /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				6381184D2C3A0F97007DC4DC /* HomeView.swift */,
+				6381184F2C3A11E5007DC4DC /* BoxGridView.swift */,
+				638118422C38C1D1007DC4DC /* BoxView.swift */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		638118552C3AC7A0007DC4DC /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		638118562C3AC7C6007DC4DC /* BoxDetail */ = {
+			isa = PBXGroup;
+			children = (
+				638118512C3AC533007DC4DC /* BoxDetailView.swift */,
+			);
+			path = BoxDetail;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -171,6 +206,7 @@
 				638118492C397D87007DC4DC /* User.swift in Sources */,
 				638118352C38C183007DC4DC /* MemoryBoxApp.swift in Sources */,
 				638118432C38C1D1007DC4DC /* BoxView.swift in Sources */,
+				638118522C3AC533007DC4DC /* BoxDetailView.swift in Sources */,
 				6381184E2C3A0F97007DC4DC /* HomeView.swift in Sources */,
 				638118502C3A11E5007DC4DC /* BoxGridView.swift in Sources */,
 				638118472C397D81007DC4DC /* Post.swift in Sources */,
