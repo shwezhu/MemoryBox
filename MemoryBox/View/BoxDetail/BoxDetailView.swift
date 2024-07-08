@@ -7,22 +7,6 @@
 
 import SwiftUI
 
-//struct BoxDetailView: View {
-//    let boxName: String
-//    let posts: [Post]
-//    
-//    var body: some View {
-//        List {
-//            ForEach(Array(posts.enumerated()), id: \.element.id) { index, post in
-//                PostView(post: post)
-//                    .listRowSeparator(.hidden, edges: index == 0 ? .top : .bottom)
-//            }
-//        }
-//        .listStyle(.plain)
-//        .navigationTitle(boxName)
-//    }
-//}
-
 struct BoxDetailView: View {
     let boxName: String
     let posts: [Post]
