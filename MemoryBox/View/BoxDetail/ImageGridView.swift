@@ -10,25 +10,38 @@ import SwiftUI
 struct ImageGridView: View {
     let post: Post
     let spacing: CGFloat = 4 // 图片之间的间距
-    let cornerRadius: CGFloat = 10 // 圆角大小
-    let colums = [GridItem(.flexible()), GridItem(.flexible())]
+    let cornerRadius: CGFloat = 10
     
     var body: some View {
+        // GeometryReader用于获取父视图的尺寸信息
         GeometryReader { geometry in
-            let dimension = calcDimension(for: geometry.size.width)
+            let singleImageSize = calcSingleImageSize(for: geometry.size.width)
             
-            LazyVGrid(columns: colums, spacing: spacing) {
+            LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: spacing) {
                 ForEach(post.imageURLs.prefix(4).indices, id: \.self) { index in
-                    imageView(url: post.imageURLs[index], size: dimension)
+                    imageView(url: post.imageURLs[index], size: singleImageSize)
                 }
             }
-            .frame(height: post.imageURLs.count > 0 ? (post.imageURLs.count == 1 ? dimension : dimension * 2 + spacing) : 0)
+            // 设置网格的frame，宽度为可用宽度，高度根据图片数量动态计算
+            .frame(width: geometry.size.width, height: calculateGridHeight(imageCount: post.imageURLs.count, singleImageSize: singleImageSize))
         }
+        // 设置整个视图的宽高比为1:1
         .aspectRatio(1, contentMode: .fit)
     }
     
-    private func calcDimension(for width: CGFloat) -> CGFloat {
+    private func calcSingleImageSize(for width: CGFloat) -> CGFloat {
         (width - spacing) / 2
+    }
+    
+    private func calculateGridHeight(imageCount: Int, singleImageSize: CGFloat) -> CGFloat {
+        switch imageCount {
+        case 0:
+            return 0
+        case 1:
+            return singleImageSize
+        default:
+            return singleImageSize * 2 + spacing
+        }
     }
     
     private func imageView(url: String, size: CGFloat) -> some View {
