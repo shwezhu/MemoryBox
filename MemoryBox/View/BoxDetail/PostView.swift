@@ -67,7 +67,7 @@ struct PostView: View {
         VStack(alignment: .leading) {
             Text(post.content)
                 .font(.body)
-            ImageGridView(post: post)
+            ImageGridView(imageURLs: post.imageURLs)
         }
     }
     
@@ -110,5 +110,5 @@ struct PostView: View {
 }
 
 #Preview {
-    PostView(post: MockData.boxes[0].posts[0])
+    PostView(post: MockData.boxes[0].posts[1])
 }
