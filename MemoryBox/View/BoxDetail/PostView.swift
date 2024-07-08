@@ -14,31 +14,41 @@ struct PostView: View {
     
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
-            postHeader
-                .padding(.bottom, 5)
-            postContent
-            postFooter
-        }
-        .padding()
-        .background(Color(.systemBackground))
-        .cornerRadius(10)
-    }
-    
-    var postHeader: some View {
-        HStack(alignment: .center) {
-            Text(post.title)
-                .font(.headline)
+            HStack(alignment: .center) {
+                Text(post.title)
+                    .font(.headline)
+                
+                Spacer()
+                
+                Menu {
+                    menuContent
+                } label: {
+                    Image(systemName: "ellipsis")
+                        .foregroundColor(.secondary)
+                        .padding()
+                }
+            }
+            .padding(.bottom, 5)
             
-            Spacer()
+            // MARK: - Content
+            Text(post.content)
+                .font(.body)
+            ImageGridView(imageURLs: post.imageURLs)
+                .border(/*@START_MENU_TOKEN@*/Color.black/*@END_MENU_TOKEN@*/)
             
-            Menu {
-                menuContent
-            } label: {
-                Image(systemName: "ellipsis")
+            // MARK: - Footer
+            HStack(alignment: .center) {
+                Text(post.author.name)
+                    .font(.caption)
                     .foregroundColor(.secondary)
-                    .padding()
+                Spacer()
+                Text(formatDate(post.createdAt))
+                    .font(.caption)
+                    .foregroundColor(.secondary)
             }
         }
+        .padding()
+        .cornerRadius(10)
     }
     
     var menuContent: some View {
@@ -60,28 +70,6 @@ struct PostView: View {
             Button(role: .destructive , action: onDelete) {
                 Label("Delete", systemImage: "trash")
             }
-        }
-    }
-    
-    var postContent: some View {
-        VStack(alignment: .leading) {
-            Text(post.content)
-                .font(.body)
-            ImageGridView(imageURLs: post.imageURLs)
-        }
-    }
-    
-    var postFooter: some View {
-        HStack(alignment: .center) {
-            Text(post.author.name)
-                .font(.caption)
-                .foregroundColor(.secondary)
-            
-            Spacer()
-            
-            Text(formatDate(post.createdAt))
-                .font(.caption)
-                .foregroundColor(.secondary)
         }
     }
     
@@ -133,6 +121,7 @@ struct ImageGridView: View {
                 .frame(width: geometry.size.width, height: calculateGridHeight(imageCount: imageURLs.count, singleImageSize: singleImageSize))
             }
         }
+        .scaledToFit()
     }
     
     private func calcSingleImageSize(for width: CGFloat) -> CGFloat {
@@ -194,5 +183,5 @@ struct ImageGridView: View {
 }
 
 #Preview {
-    PostView(post: MockData.boxes[0].posts[1])
+    PostView(post: MockData.boxes[1].posts[1])
 }
