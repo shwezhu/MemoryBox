@@ -11,13 +11,14 @@ struct ImageGridView: View {
     let post: Post
     let spacing: CGFloat = 4 // 图片之间的间距
     let cornerRadius: CGFloat = 10
-    
+
     var body: some View {
         // GeometryReader用于获取父视图的尺寸信息
         GeometryReader { geometry in
             let singleImageSize = calcSingleImageSize(for: geometry.size.width)
             
-            LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: spacing) {
+            // 第一个 spacing 指定水平距离, 第二个指定垂直距离.
+            LazyVGrid(columns: [GridItem(.flexible(), spacing: spacing), GridItem(.flexible())], spacing: spacing) {
                 ForEach(post.imageURLs.prefix(4).indices, id: \.self) { index in
                     imageView(url: post.imageURLs[index], size: singleImageSize)
                 }
