@@ -28,12 +28,19 @@ struct MockData {
     static let collaborator2 = User(name: "朱有才", avatarURL: URL(string: "https://example.com/bob.jpg"))
     static let collaborator3 = User(name: "John", avatarURL: URL(string: "https://example.com/bob.jpg"))
     
+    static let urls = [
+        "https://pub-2a6758f3b2d64ef5bb71ba1601101d35.r2.dev/blogs/2024/07/1473168901a05453e2925380ecdbfc7d.jpg",
+        "https://pub-2a6758f3b2d64ef5bb71ba1601101d35.r2.dev/blogs/2024/07/aefa5f11046572011338797e0365a566.jpg",
+        "https://pub-2a6758f3b2d64ef5bb71ba1601101d35.r2.dev/blogs/2024/07/e19fa93e872678fb08908fd096f87647.jpg",
+        "https://pub-2a6758f3b2d64ef5bb71ba1601101d35.r2.dev/blogs/2024/07/083220f0900ed1f222cee4a625202ec5.jpg"
+    ]
+    
     static let boxes: [Box] = [
         {
             let box = Box(name: "2023 杭州之行", isPrivate: false, creator: user)
             box.posts = [
+                Post(title: "好看的的落日", content: "今天傍晚看到了特别好看的落日, 超级美...", imageURLs: urls , author: user),
                 Post(title: "美食推荐", content: "今天发现了一家很棒的餐厅...", author: user),
-                Post(title: "好看的的落日", content: "今天傍晚看到了特别好看的落日, 超级美...", author: user)
             ]
             box.collaborators = [collaborator1, collaborator2, collaborator3]
             return box

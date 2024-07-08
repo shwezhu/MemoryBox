@@ -12,16 +12,16 @@ class Post: Identifiable {
     var id: UUID
     var title: String
     var content: String
-    var imageURL: URL?
+    var imageURLs: [String]
     var author: User
     var createdAt: Date
     var editedAt: Date?
     
-    init(title: String, content: String, imageURL: URL? = nil, author: User) {
+    init(title: String, content: String, imageURLs: [String] = [], author: User) {
         self.id = UUID()
         self.title = title
         self.content = content
-        self.imageURL = imageURL
+        self.imageURLs = []
         self.author = author
         self.createdAt = Date()
         self.editedAt = nil
