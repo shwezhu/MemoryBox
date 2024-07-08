@@ -21,7 +21,7 @@ class Post: Identifiable {
         self.id = UUID()
         self.title = title
         self.content = content
-        self.imageURLs = []
+        self.imageURLs = imageURLs
         self.author = author
         self.createdAt = Date()
         self.editedAt = nil

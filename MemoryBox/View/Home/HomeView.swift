@@ -25,6 +25,7 @@ struct HomeView: View {
     
     private var boxGrid: some View {
         let columns: [GridItem] = [GridItem(.flexible()), GridItem(.flexible())]
+        // LazyVGrid 不提供滚动功能
         return ScrollView {
             LazyVGrid(columns: columns) {
                 ForEach(boxes) { box in

@@ -67,7 +67,7 @@ struct PostView: View {
         VStack(alignment: .leading) {
             Text(post.content)
                 .font(.body)
-            imageGridView
+            ImageGridView(post: post)
         }
     }
     
@@ -82,22 +82,6 @@ struct PostView: View {
             Text(formatDate(post.createdAt))
                 .font(.caption)
                 .foregroundColor(.secondary)
-        }
-    }
-    
-    
-    var imageGridView: some View {
-        VStack {
-            AsyncImage(url: URL(string: "https://pub-2a6758f3b2d64ef5bb71ba1601101d35.r2.dev/blogs/2024/07/1473168901a05453e2925380ecdbfc7d.jpg")) { image in
-                image.resizable()
-                    .aspectRatio(contentMode: .fill)
-                    .frame(height: 150)
-                    .clipShape(RoundedRectangle(cornerRadius: 10))
-            } placeholder: {
-                RoundedRectangle(cornerRadius: 10)
-                    .fill(Color.gray.opacity(0.3))
-                    .frame(height: 150)
-            }
         }
     }
     
