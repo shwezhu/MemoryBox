@@ -14,14 +14,27 @@ struct HomeView: View {
     
     var body: some View {
         NavigationStack {
-            VStack {
-                BoxGridView(boxes: boxes)
+            boxGrid
+                .searchable(text: $searchText)
+                .navigationTitle("Memory Boxes")
+                .overlay(alignment: .bottomLeading) {
+                    addBoxButton
+                }
+        }
+    }
+    
+    private var boxGrid: some View {
+        let columns: [GridItem] = [GridItem(.flexible()), GridItem(.flexible())]
+        return ScrollView {
+            LazyVGrid(columns: columns) {
+                ForEach(boxes) { box in
+                    NavigationLink(destination: BoxDetailView(boxName: box.name, posts: box.posts)) {
+                        BoxView(box: box)
+                    }
+                    .buttonStyle(PlainButtonStyle())
+                }
             }
-            .searchable(text: $searchText)
-            .navigationTitle("Memory Boxes")
-            .overlay(alignment: .bottomLeading) {
-                addBoxButton
-            }
+            .padding(10)
         }
     }
     
