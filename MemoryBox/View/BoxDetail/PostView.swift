@@ -108,11 +108,10 @@ struct ImageGridView: View {
         } else {
             LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())]) {
                 ForEach(imageURLs.prefix(4).indices, id: \.self) { index in
-                    GeometryReader { geo in
-                        gridItem(url: imageURLs[index])
-                    }
+                    gridItem(url: imageURLs[index])
+                    .aspectRatio(1, contentMode: .fill)
+                    .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity)
                     .clipShape(RoundedRectangle(cornerRadius: cornerRadius))
-                    .scaledToFit()
                 }
             }
         }

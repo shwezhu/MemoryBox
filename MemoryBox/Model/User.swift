@@ -29,17 +29,17 @@ struct MockData {
     static let collaborator3 = User(name: "John", avatarURL: URL(string: "https://example.com/bob.jpg"))
     
     static let urls = [
+        "https://pub-2a6758f3b2d64ef5bb71ba1601101d35.r2.dev/blogs/2024/07/e19fa93e872678fb08908fd096f87647.jpg",
+        "https://pub-2a6758f3b2d64ef5bb71ba1601101d35.r2.dev/blogs/2024/07/083220f0900ed1f222cee4a625202ec5.jpg",
         "https://pub-2a6758f3b2d64ef5bb71ba1601101d35.r2.dev/blogs/2024/07/1473168901a05453e2925380ecdbfc7d.jpg",
         "https://pub-2a6758f3b2d64ef5bb71ba1601101d35.r2.dev/blogs/2024/07/aefa5f11046572011338797e0365a566.jpg",
-        "https://pub-2a6758f3b2d64ef5bb71ba1601101d35.r2.dev/blogs/2024/07/e19fa93e872678fb08908fd096f87647.jpg",
-        "https://pub-2a6758f3b2d64ef5bb71ba1601101d35.r2.dev/blogs/2024/07/083220f0900ed1f222cee4a625202ec5.jpg"
     ]
     
     static let urls2 = ["https://pub-2a6758f3b2d64ef5bb71ba1601101d35.r2.dev/blogs/2024/07/083220f0900ed1f222cee4a625202ec5.jpg"]
     
     static let urls3 = [
-        "https://pub-2a6758f3b2d64ef5bb71ba1601101d35.r2.dev/blogs/2024/07/1473168901a05453e2925380ecdbfc7d.jpg",
-        "https://pub-2a6758f3b2d64ef5bb71ba1601101d35.r2.dev/blogs/2024/07/aefa5f11046572011338797e0365a566.jpg"
+        "https://pub-2a6758f3b2d64ef5bb71ba1601101d35.r2.dev/blogs/2024/07/e19fa93e872678fb08908fd096f87647.jpg",
+        "https://pub-2a6758f3b2d64ef5bb71ba1601101d35.r2.dev/blogs/2024/07/083220f0900ed1f222cee4a625202ec5.jpg",
     ]
     
     static let boxes: [Box] = [
