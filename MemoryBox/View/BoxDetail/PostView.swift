@@ -106,11 +106,11 @@ struct ImageGridView: View {
                 .clipShape(RoundedRectangle(cornerRadius: cornerRadius))
                 .scaledToFit()
         } else {
-            LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())]) {
+            LazyVGrid(columns: [.init(.adaptive(minimum: 120))]) {
                 ForEach(imageURLs.prefix(4).indices, id: \.self) { index in
                     gridItem(url: imageURLs[index])
                     .aspectRatio(1, contentMode: .fill)
-                    .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity)
+                    .frame(minWidth: 0, minHeight: 0)
                     .clipShape(RoundedRectangle(cornerRadius: cornerRadius))
                 }
             }
