@@ -104,18 +104,16 @@ struct ImageGridView: View {
     var body: some View {
         Group {
             if imageURLs.count == 1 {
-                // 单张图片时的布局
-                imageView(url: imageURLs[0])
+                GridItemView(url: imageURLs[0])
                     .clipShape(RoundedRectangle(cornerRadius: cornerRadius))
                     .scaledToFit()
             } else {
-                // 多张图片时的网格布局
                 LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())]) {
                     ForEach(imageURLs.prefix(4).indices, id: \.self) { index in
                         GeometryReader { geo in
-                            imageView(url: imageURLs[index])
+                            GridItemView(url: imageURLs[index])
                         }
-                        .cornerRadius(8.0)
+                        .clipShape(RoundedRectangle(cornerRadius: cornerRadius))
                         .scaledToFit()
                     }
                 }
@@ -124,21 +122,13 @@ struct ImageGridView: View {
         }
     }
     
-    private func imageView(url: String) -> some View {
-        AsyncImage(url: URL(string: url)) { phase in
-            switch phase {
-            case .empty:
-                ProgressView()
-            case .success(let image):
-                image
-                    .resizable()
-                    .scaledToFill()
-            case .failure:
-                RoundedRectangle(cornerRadius: cornerRadius)
-                    .fill(Color.gray.opacity(0.3))
-            @unknown default:
-                EmptyView()
-            }
+    private func GridItemView(url: String) -> some View {
+        AsyncImage(url: URL(string: url)) { image in
+            image
+                .resizable()
+                .scaledToFill()
+        } placeholder: {
+            ProgressView()
         }
     }
 }
