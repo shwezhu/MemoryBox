@@ -98,31 +98,27 @@ struct PostView: View {
 
 struct ImageGridView: View {
     let imageURLs: [String]
-    let spacing: CGFloat = 4
     let cornerRadius: CGFloat = 10
     
     var body: some View {
-        Group {
-            if imageURLs.count == 1 {
-                GridItemView(url: imageURLs[0])
+        if imageURLs.count == 1 {
+            gridItem(url: imageURLs[0])
+                .clipShape(RoundedRectangle(cornerRadius: cornerRadius))
+                .scaledToFit()
+        } else {
+            LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())]) {
+                ForEach(imageURLs.prefix(4).indices, id: \.self) { index in
+                    GeometryReader { geo in
+                        gridItem(url: imageURLs[index])
+                    }
                     .clipShape(RoundedRectangle(cornerRadius: cornerRadius))
                     .scaledToFit()
-            } else {
-                LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())]) {
-                    ForEach(imageURLs.prefix(4).indices, id: \.self) { index in
-                        GeometryReader { geo in
-                            GridItemView(url: imageURLs[index])
-                        }
-                        .clipShape(RoundedRectangle(cornerRadius: cornerRadius))
-                        .scaledToFit()
-                    }
                 }
-                
             }
         }
     }
     
-    private func GridItemView(url: String) -> some View {
+    private func gridItem(url: String) -> some View {
         AsyncImage(url: URL(string: url)) { image in
             image
                 .resizable()
