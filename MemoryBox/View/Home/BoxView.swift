@@ -23,80 +23,66 @@ struct BoxView: View {
     private var boxHeaderView: some View {
         HStack(alignment: .center) {
             Text(box.name)
-                .bold()
+                .font(.headline)
                 .lineLimit(1)
             Spacer()
             Text("\(box.postCount)")
-                .font(.title2)
-                .bold()
+                .font(.title2.bold())
         }
     }
     
     private var boxFooterView: some View {
         HStack {
-            collaboratorsView
+            CollaboratorsView(users: box.collaborators)
             Spacer()
             privacyIcon
         }
     }
     
-    // 将协作者视图抽取为单独的计算属性，提高可读性
-    private var collaboratorsView: some View {
-        HStack {
-            ForEach(box.collaborators.prefix(2)) { collaborator in
-                CircularAvatarView(user: collaborator)
-            }
-            if box.collaborators.count > 2 {
-                Text("+\(box.collaborators.count - 2)") // 显示更多协作者的具体数量
-                    .font(.caption)
-                    .foregroundColor(.secondary)
-            }
-        }
-    }
-    
-    // 将隐私图标抽取为单独的计算属性，提高可读性
     private var privacyIcon: some View {
         Image(systemName: "lock.fill")
             .opacity(box.isPrivate ? 1 : 0)
-            .accessibility(label: Text(box.isPrivate ? "Private" : "Public")) // 添加无障碍标签
     }
 }
 
-struct CircularAvatarView: View {
-    let user: User
+struct CollaboratorsView: View {
+    let users: [User]
+    private let avatarSize: CGFloat = 20
     
     var body: some View {
-        Group {
-            if let url = user.avatarURL {
-                AsyncImage(url: url) { phase in
-                    switch phase {
-                    case .success(let image):
-                        image.resizable().scaledToFill()
-                    case .failure(_):
-                        placeholderView
-                    case .empty:
-                        ProgressView() // 添加加载指示器
-                    @unknown default:
-                        placeholderView
+        HStack(spacing: 4) {
+            ForEach(users.prefix(2)) { user in
+                Group {
+                    if let url = user.avatarURL {
+                        AsyncImage(url: url) { image in
+                            image.resizable().scaledToFit()
+                        } placeholder: {
+                            placeholderView(name: user.name)
+                        }
+                    } else {
+                        placeholderView(name: user.name)
                     }
                 }
-            } else {
-                placeholderView
+                .frame(width: avatarSize, height: avatarSize)
+                .clipShape(Circle())
+            }
+            
+            if users.count > 2 {
+                Text("+\(users.count - 2)")
+                    .font(.caption2)
+                    .foregroundColor(.secondary)
+                    .frame(width: avatarSize, height: avatarSize)
+                    .background(Color.gray.opacity(0.2))
+                    .clipShape(Circle())
             }
         }
-        .frame(width: 20, height: 20)
-        .clipShape(Circle())
     }
     
-    private var placeholderView: some View {
-        Text(name)
-            .font(.caption2) // 使用更小的字体以确保填充整个圆形
-            .frame(width: 20, height: 20)
+    private func placeholderView(name: String) -> some View {
+        Text(name.prefix(1).uppercased())
+            .font(.system(size: avatarSize * 0.6))
+            .frame(width: avatarSize, height: avatarSize)
             .background(Color.gray.opacity(0.2))
-    }
-    
-    private var name: String {
-        String(user.name.prefix(1).uppercased()) // 始终使用第一个字符，并转换为大写
     }
 }
 
