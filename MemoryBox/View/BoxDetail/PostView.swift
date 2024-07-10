@@ -8,122 +8,136 @@
 import SwiftUI
 
 struct PostView: View {
+    // MARK: - Properties
     let post: Post
     let maxImagesToShow = 4
     @State private var showMenu = false
     
+    // MARK: - Body
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
-            HStack(alignment: .center) {
-                Text(post.title)
-                    .font(.headline)
-                
-                Spacer()
-                
-                Menu {
-                    menuContent
-                } label: {
-                    Image(systemName: "ellipsis")
-                        .foregroundColor(.secondary)
-                        .padding()
-                }
-            }
-            .padding(.bottom, 5)
-            
-            // MARK: - Content
-            Text(post.content)
-                .font(.body)
-            ImageGridView(imageURLs: post.imageURLs)
-            
-            // MARK: - Footer
-            HStack(alignment: .center) {
-                Text(post.author.name)
-                    .font(.caption)
-                    .foregroundColor(.secondary)
-                Spacer()
-                Text(formatDate(post.createdAt))
-                    .font(.caption)
-                    .foregroundColor(.secondary)
-            }
+            headerView
+            contentView
+            footerView
         }
         .padding()
+        .background(Color(.systemBackground))
         .cornerRadius(10)
     }
     
-    var menuContent: some View {
-        VStack() {
-            Button(action: {
-                // Add edit action
-            }) {
+    // MARK: - Subviews
+    
+    /// Header view containing the post title and menu
+    private var headerView: some View {
+        HStack(alignment: .center) {
+            Text(post.title)
+                .font(.headline)
+                .lineLimit(2)
+            
+            Spacer()
+            
+            Menu {
+                menuContent
+            } label: {
+                Image(systemName: "ellipsis")
+                    .foregroundColor(.secondary)
+                    .frame(width: 44, height: 44) // 增加点击区域
+            }
+        }
+        .padding(.bottom, 5)
+    }
+    
+    /// Content view containing the post text and images
+    private var contentView: some View {
+        VStack(alignment: .leading, spacing: 10) {
+            Text(post.content)
+                .font(.body)
+            
+            if !post.imageURLs.isEmpty {
+                ImageGridView(imageURLs: Array(post.imageURLs.prefix(maxImagesToShow)))
+            }
+        }
+    }
+    
+    /// Footer view containing author name and post date
+    private var footerView: some View {
+        HStack(alignment: .center) {
+            Text(post.author.name)
+                .font(.caption)
+                .foregroundColor(.secondary)
+            Spacer()
+            Text(formatDate(post.createdAt))
+                .font(.caption)
+                .foregroundColor(.secondary)
+        }
+    }
+    
+    // MARK: - Menu Content
+    
+    /// Menu options for the post
+    private var menuContent: some View {
+        Group {
+            Button(action: onEdit) {
                 Label("Edit", systemImage: "pencil")
             }
             
-            Button(action: {
-                // Add edit action
-            }) {
+            Button(action: onFavorite) {
                 Label("Favorite", systemImage: "heart")
             }
             
             Divider()
             
-            Button(role: .destructive , action: onDelete) {
+            Button(role: .destructive, action: onDelete) {
                 Label("Delete", systemImage: "trash")
             }
         }
     }
     
+    // MARK: - Helper Methods
+    
+    /// Formats the date for display
+    /// - Parameter date: The date to format
+    /// - Returns: A formatted string representation of the date
     private func formatDate(_ date: Date) -> String {
         let calendar = Calendar.current
         let components = calendar.dateComponents([.day], from: date, to: Date())
         let formatter = DateFormatter()
-        formatter.dateFormat = "h:mm a"
         
         if let day = components.day {
-            if day == 0 {
-                return "Today at " + formatter.string(from: date)
-            } else if day == 1 {
-                return "Yesterday at " + formatter.string(from: date)
+            switch day {
+            case 0:
+                return "Today at " + formatter.string(from: date, format: "h:mm a")
+            case 1:
+                return "Yesterday at " + formatter.string(from: date, format: "h:mm a")
+            default:
+                return formatter.string(from: date, format: "MMM d, yyyy 'at' h:mm a")
             }
         }
         
-        formatter.dateStyle = .medium
-        formatter.timeStyle = .short
-        return formatter.string(from: date)
+        return formatter.string(from: date, format: "MMM d, yyyy 'at' h:mm a")
+    }
+    
+    // MARK: - Action Methods
+    
+    private func onEdit() {
+        // Implement edit action
+    }
+    
+    private func onFavorite() {
+        // Implement favorite action
     }
     
     private func onDelete() {
-        
+        // Implement delete action
     }
 }
 
-struct ImageGridView: View {
-    let imageURLs: [String]
-    let cornerRadius: CGFloat = 10
-    
-    var body: some View {
-        if imageURLs.count == 1 {
-            gridItem(url: imageURLs[0])
-                .clipShape(RoundedRectangle(cornerRadius: cornerRadius))
-                .scaledToFit()
-        } else {
-            LazyVGrid(columns: [.init(.adaptive(minimum: 120))]) {
-                ForEach(imageURLs.prefix(4).indices, id: \.self) { index in
-                    gridItem(url: imageURLs[index])
-                        .scaledToFill()
-                        .frame(minWidth: 0, minHeight: 0)
-                        .clipShape(RoundedRectangle(cornerRadius: cornerRadius))
-                }
-            }
-        }
-    }
-    
-    private func gridItem(url: String) -> some View {
-        AsyncImage(url: URL(string: url)) { image in
-            image
-                .resizable()
-        } placeholder: {
-            ProgressView()
-        }
+// MARK: - Extensions
+
+extension DateFormatter {
+    func string(from date: Date, format: String) -> String {
+        self.dateFormat = format
+        return self.string(from: date)
     }
 }
 
