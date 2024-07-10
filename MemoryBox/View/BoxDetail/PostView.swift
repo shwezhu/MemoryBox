@@ -109,9 +109,9 @@ struct ImageGridView: View {
             LazyVGrid(columns: [.init(.adaptive(minimum: 120))]) {
                 ForEach(imageURLs.prefix(4).indices, id: \.self) { index in
                     gridItem(url: imageURLs[index])
-                    .aspectRatio(1, contentMode: .fill)
-                    .frame(minWidth: 0, minHeight: 0)
-                    .clipShape(RoundedRectangle(cornerRadius: cornerRadius))
+                        .scaledToFill()
+                        .frame(minWidth: 0, minHeight: 0)
+                        .clipShape(RoundedRectangle(cornerRadius: cornerRadius))
                 }
             }
         }
@@ -121,7 +121,6 @@ struct ImageGridView: View {
         AsyncImage(url: URL(string: url)) { image in
             image
                 .resizable()
-                .scaledToFill()
         } placeholder: {
             ProgressView()
         }
@@ -129,5 +128,5 @@ struct ImageGridView: View {
 }
 
 #Preview {
-    PostView(post: MockData.boxes[0].posts[0])
+    PostView(post: MockData.boxes[1].posts[0])
 }
