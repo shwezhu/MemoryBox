@@ -45,6 +45,7 @@ struct HomeView: View {
         } label: {
             Label("New Box", systemImage: "plus")
                 .fontWeight(.bold)
+                .foregroundStyle(Color.black)
                 .padding()
         }
     }
