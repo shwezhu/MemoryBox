@@ -25,15 +25,13 @@ struct AddBoxView: View {
                         Button(action: commit) {
                             Text("Add")
                         }
+                        .disabled(box.name.isEmpty)
                     }
                 }
         }
     }
     
     private func commit() {
-        if box.name.isEmpty {
-            return
-        }
         // context.insert(box)
         dismiss()
     }
