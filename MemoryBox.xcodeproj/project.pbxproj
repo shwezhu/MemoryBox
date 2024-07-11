@@ -109,7 +109,6 @@
 				638118552C3AC7A0007DC4DC /* View */,
 				638118542C3AC791007DC4DC /* Home */,
 				638118562C3AC7C6007DC4DC /* BoxDetail */,
-				6381185F2C3F5CEF007DC4DC /* Edit */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -127,6 +126,8 @@
 		638118552C3AC7A0007DC4DC /* View */ = {
 			isa = PBXGroup;
 			children = (
+				638118622C400767007DC4DC /* BoxFormView.swift */,
+				638118602C3F5D20007DC4DC /* AddBoxView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -140,15 +141,6 @@
 				6381185B2C3F449A007DC4DC /* CustomAsyncImageView.swift */,
 			);
 			path = BoxDetail;
-			sourceTree = "<group>";
-		};
-		6381185F2C3F5CEF007DC4DC /* Edit */ = {
-			isa = PBXGroup;
-			children = (
-				638118602C3F5D20007DC4DC /* AddBoxView.swift */,
-				638118622C400767007DC4DC /* BoxFormView.swift */,
-			);
-			path = Edit;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

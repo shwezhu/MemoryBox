@@ -14,15 +14,15 @@ class Box: Identifiable {
     var name: String
     var isPrivate: Bool
     var posts: [Post]
-    let creator: User?
+    let creatorID: UUID?
     var collaborators: [User]
     
-    init(name: String = "", isPrivate: Bool = true, creator: User? = nil) {
+    init(name: String = "", isPrivate: Bool = true, creator: UUID? = nil) {
         self.id = UUID()
         self.name = name
         self.isPrivate = isPrivate
         self.posts = []
-        self.creator = creator
+        self.creatorID = creator
         self.collaborators = []
     }
     
@@ -30,9 +30,9 @@ class Box: Identifiable {
         posts.count
     }
     
-//    func canEditCollaborators(user: User) -> Bool {
-//        user.id == creator.id
-//    }
+    func canEditCollaborators(user: User) -> Bool {
+        user.id == creatorID
+    }
     
     func addCollaborator(user: User) {
         if !collaborators.contains(where: { $0.id == user.id }) {
