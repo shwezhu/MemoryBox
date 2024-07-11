@@ -6,17 +6,22 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct HomeView: View {
-    @State private var isAddReminderDialogPresented = false
+    @Environment(\.modelContext) var context
+    @State private var isAddBoxSheetPresented = false
     @State private var searchText = ""
-    let boxes = MockData.boxes
+    let boxes: [Box] = []
     
     var body: some View {
         NavigationStack {
             boxGrid
                 .searchable(text: $searchText)
                 .navigationTitle("Memory Boxes")
+                .sheet(isPresented: $isAddBoxSheetPresented) {
+                    AddBoxView()
+                }
                 .overlay(alignment: .bottomLeading) {
                     addBoxButton
                 }
@@ -41,7 +46,7 @@ struct HomeView: View {
     
     private var addBoxButton: some View {
         Button {
-            isAddReminderDialogPresented = true
+            isAddBoxSheetPresented = true
         } label: {
             Label("New Box", systemImage: "plus")
                 .fontWeight(.bold)
@@ -49,8 +54,4 @@ struct HomeView: View {
                 .padding()
         }
     }
-}
-
-#Preview {
-    HomeView()
 }

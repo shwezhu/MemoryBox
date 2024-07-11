@@ -6,16 +6,18 @@
 //
 
 import Foundation
+import SwiftData
 
+@Model
 class Box: Identifiable {
     var id: UUID
     var name: String
     var isPrivate: Bool
     var posts: [Post]
-    let creator: User
+    let creator: User?
     var collaborators: [User]
     
-    init(name: String, isPrivate: Bool = true, creator: User) {
+    init(name: String = "", isPrivate: Bool = true, creator: User? = nil) {
         self.id = UUID()
         self.name = name
         self.isPrivate = isPrivate
@@ -28,9 +30,9 @@ class Box: Identifiable {
         posts.count
     }
     
-    func canEditCollaborators(user: User) -> Bool {
-        user.id == creator.id
-    }
+//    func canEditCollaborators(user: User) -> Bool {
+//        user.id == creator.id
+//    }
     
     func addCollaborator(user: User) {
         if !collaborators.contains(where: { $0.id == user.id }) {

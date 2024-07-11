@@ -6,9 +6,10 @@
 //
 
 import Foundation
+import SwiftData
 
-// ‘ForEach’ requires xxx conform to ‘Identifiable’
-class Post: Identifiable {
+@Model
+class Post: Identifiable { // ‘ForEach’ requires xxx conform to ‘Identifiable’
     var id: UUID
     var title: String
     var content: String

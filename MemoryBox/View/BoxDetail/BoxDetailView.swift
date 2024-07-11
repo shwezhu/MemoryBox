@@ -25,7 +25,7 @@ struct BoxDetailView: View {
         .navigationTitle(boxName)
     }
 }
-
-#Preview {
-    BoxDetailView(boxName: "2023杭州之行", posts: MockData.boxes[0].posts)
-}
+//
+//#Preview {
+//    BoxDetailView(boxName: "2023杭州之行", posts: MockData.boxes[0].posts)
+//}

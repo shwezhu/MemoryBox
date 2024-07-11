@@ -47,6 +47,6 @@ struct BoxView: View {
     }
 }
 
-#Preview {
-    BoxView(box: MockData.boxes[0])
-}
+//#Preview {
+//    BoxView(box: MockData.boxes[0])
+//}

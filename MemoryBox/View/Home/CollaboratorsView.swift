@@ -34,7 +34,7 @@ struct CollaboratorsView: View {
                     .font(.caption2)
                     .foregroundColor(.secondary)
                     .frame(width: avatarSize, height: avatarSize)
-                    .background(Color.gray.opacity(0.2))
+                    .background(Color.gray.opacity(0.1))
                     .clipShape(Circle())
             }
         }
@@ -44,6 +44,6 @@ struct CollaboratorsView: View {
         Text(name.prefix(1).uppercased())
             .font(.system(size: avatarSize * 0.6))
             .frame(width: avatarSize, height: avatarSize)
-            .background(Color.gray.opacity(0.2))
+            .background(Color.gray.opacity(0.1))
     }
 }

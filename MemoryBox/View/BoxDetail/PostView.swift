@@ -140,7 +140,7 @@ extension DateFormatter {
         return self.string(from: date)
     }
 }
-
-#Preview {
-    PostView(post: MockData.boxes[1].posts[0])
-}
+//
+//#Preview {
+//    PostView(post: MockData.boxes[1].posts[0])
+//}
