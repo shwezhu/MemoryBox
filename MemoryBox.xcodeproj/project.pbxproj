@@ -13,7 +13,9 @@
 		6358742B2C4472A300BECF4C /* ContenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6358742A2C4472A300BECF4C /* ContenView.swift */; };
 		6358742D2C44733100BECF4C /* RegisterView-ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6358742C2C44733100BECF4C /* RegisterView-ViewModel.swift */; };
 		6358742F2C44757400BECF4C /* LoginView-ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6358742E2C44757400BECF4C /* LoginView-ViewModel.swift */; };
-		635874322C44867600BECF4C /* AddBoxView-ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635874312C44867600BECF4C /* AddBoxView-ViewModel.swift */; };
+		635874342C448BA200BECF4C /* BoxForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635874332C448BA200BECF4C /* BoxForm.swift */; };
+		635874362C44904D00BECF4C /* BoxForm-ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635874352C44904D00BECF4C /* BoxForm-ViewModel.swift */; };
+		635874382C44939200BECF4C /* UpdateBoxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635874372C44939200BECF4C /* UpdateBoxView.swift */; };
 		638118352C38C183007DC4DC /* MemoryBoxApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638118342C38C183007DC4DC /* MemoryBoxApp.swift */; };
 		638118392C38C185007DC4DC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 638118382C38C185007DC4DC /* Assets.xcassets */; };
 		6381183C2C38C185007DC4DC /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6381183B2C38C185007DC4DC /* Preview Assets.xcassets */; };
@@ -38,7 +40,9 @@
 		6358742A2C4472A300BECF4C /* ContenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContenView.swift; sourceTree = "<group>"; };
 		6358742C2C44733100BECF4C /* RegisterView-ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RegisterView-ViewModel.swift"; sourceTree = "<group>"; };
 		6358742E2C44757400BECF4C /* LoginView-ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LoginView-ViewModel.swift"; sourceTree = "<group>"; };
-		635874312C44867600BECF4C /* AddBoxView-ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AddBoxView-ViewModel.swift"; sourceTree = "<group>"; };
+		635874332C448BA200BECF4C /* BoxForm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BoxForm.swift; path = ../../../../../../.Trash/BoxForm.swift; sourceTree = "<group>"; };
+		635874352C44904D00BECF4C /* BoxForm-ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BoxForm-ViewModel.swift"; sourceTree = "<group>"; };
+		635874372C44939200BECF4C /* UpdateBoxView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateBoxView.swift; sourceTree = "<group>"; };
 		638118312C38C183007DC4DC /* MemoryBox.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MemoryBox.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		638118342C38C183007DC4DC /* MemoryBoxApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryBoxApp.swift; sourceTree = "<group>"; };
 		638118382C38C185007DC4DC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -91,7 +95,9 @@
 			isa = PBXGroup;
 			children = (
 				638118602C3F5D20007DC4DC /* AddBoxView.swift */,
-				635874312C44867600BECF4C /* AddBoxView-ViewModel.swift */,
+				635874372C44939200BECF4C /* UpdateBoxView.swift */,
+				635874332C448BA200BECF4C /* BoxForm.swift */,
+				635874352C44904D00BECF4C /* BoxForm-ViewModel.swift */,
 			);
 			path = Box;
 			sourceTree = "<group>";
@@ -257,22 +263,24 @@
 			files = (
 				638118452C397D34007DC4DC /* Box.swift in Sources */,
 				638118492C397D87007DC4DC /* User.swift in Sources */,
+				635874362C44904D00BECF4C /* BoxForm-ViewModel.swift in Sources */,
 				638118352C38C183007DC4DC /* MemoryBoxApp.swift in Sources */,
 				6358742B2C4472A300BECF4C /* ContenView.swift in Sources */,
 				635874242C43F83600BECF4C /* LoginView.swift in Sources */,
-				635874322C44867600BECF4C /* AddBoxView-ViewModel.swift in Sources */,
 				6358742F2C44757400BECF4C /* LoginView-ViewModel.swift in Sources */,
 				6358742D2C44733100BECF4C /* RegisterView-ViewModel.swift in Sources */,
 				6381185C2C3F449A007DC4DC /* CustomAsyncImageView.swift in Sources */,
 				638118432C38C1D1007DC4DC /* BoxView.swift in Sources */,
 				638118522C3AC533007DC4DC /* BoxDetailView.swift in Sources */,
 				6381184E2C3A0F97007DC4DC /* HomeView.swift in Sources */,
+				635874342C448BA200BECF4C /* BoxForm.swift in Sources */,
 				638118612C3F5D20007DC4DC /* AddBoxView.swift in Sources */,
 				6381185A2C3C2D01007DC4DC /* ImageGridView.swift in Sources */,
 				638118472C397D81007DC4DC /* Post.swift in Sources */,
 				6381184C2C397FE0007DC4DC /* test.swift in Sources */,
 				635874262C44664300BECF4C /* RegisterView.swift in Sources */,
 				635874292C44687900BECF4C /* AuthModifiers.swift in Sources */,
+				635874382C44939200BECF4C /* UpdateBoxView.swift in Sources */,
 				638118582C3B1B47007DC4DC /* PostCell.swift in Sources */,
 				6381185E2C3F5977007DC4DC /* CollaboratorsView.swift in Sources */,
 			);
