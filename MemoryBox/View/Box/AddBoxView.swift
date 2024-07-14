@@ -10,22 +10,21 @@ import SwiftData
 
 struct AddBoxView: View {
     @Environment(\.dismiss) private var dismiss
+    @State private var viewModel = ViewModel()
     
-    @State private var box: Box
-
     var body: some View {
         NavigationStack {
             Form {
                 Section {
-                    TextField("Name", text: $box.name)
+                    TextField("Name", text: $viewModel.box.name)
                 }
                 Section {
-                    Toggle(isOn: $box.isPrivate) {
+                    Toggle(isOn: $viewModel.box.isPrivate) {
                         Label {
-                            Text(box.isPrivate ? "Private" : "Public")
+                            Text(viewModel.box.isPrivate ? "Private" : "Public")
                                 .foregroundColor(.primary)
                         } icon: {
-                            Image(systemName: box.isPrivate ? "lock.fill" : "lock.open.fill")
+                            Image(systemName: viewModel.box.isPrivate ? "lock.fill" : "lock.open.fill")
                                 .foregroundStyle(Color.black)
                         }
                     }
@@ -42,14 +41,14 @@ struct AddBoxView: View {
                         Button(action: commit) {
                             Text("Add")
                         }
-                        .disabled(box.name.isEmpty)
+                        .disabled(viewModel.box.name.isEmpty)
                     }
                 }
         }
     }
     
     private func commit() {
-        dismiss()
+        // Task { try await viewModel.createBox() }
     }
     
     private func cancel() {

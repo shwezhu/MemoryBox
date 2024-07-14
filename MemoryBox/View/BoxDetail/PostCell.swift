@@ -62,7 +62,7 @@ struct PostView: View {
     /// Footer view containing author name and post date
     private var footerView: some View {
         HStack(alignment: .center) {
-            Text(post.author.name)
+            Text(post.creator.name)
                 .font(.caption)
                 .foregroundColor(.secondary)
             Spacer()

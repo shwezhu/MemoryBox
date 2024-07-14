@@ -8,21 +8,21 @@
 import Foundation
 import SwiftData
 
-class Post: Identifiable { // ‘ForEach’ requires xxx conform to ‘Identifiable’
-    var id: UUID
+struct Post: Identifiable { // ‘ForEach’ requires xxx conform to ‘Identifiable’
+    var id: String
     var title: String
     var content: String
     var imageURLs: [String]
-    var author: User
+    var creator: User
     var createdAt: Date
     var editedAt: Date?
     
-    init(title: String, content: String, imageURLs: [String] = [], author: User) {
-        self.id = UUID()
+    init(id: String, title: String, content: String, imageURLs: [String] = [], creator: User) {
+        self.id = id
         self.title = title
         self.content = content
         self.imageURLs = imageURLs
-        self.author = author
+        self.creator = creator
         self.createdAt = Date()
         self.editedAt = nil
     }

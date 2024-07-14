@@ -35,7 +35,7 @@ struct BoxView: View {
     
     private var boxFooterView: some View {
         HStack {
-            CollaboratorsView(users: box.collaborators)
+            CollaboratorsView(users: box.collaborators ?? [])
             Spacer()
             privacyIcon
         }

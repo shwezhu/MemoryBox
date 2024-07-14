@@ -9,37 +9,32 @@ import Foundation
 import SwiftData
 
 struct Box: Identifiable {
-    var id: UUID
-    var name: String
-    var isPrivate: Bool
-    var posts: [Post]
-    let creatorID: UUID?
-    var collaborators: [User]
+    var boxID: String?
+    var name: String = ""
+    var isPrivate: Bool = true
+    var posts: [Post]?
+    let ownerID: String
+    var collaborators: [User]?
     
-    init(name: String = "", isPrivate: Bool = true, creator: UUID? = nil) {
-        self.id = UUID()
-        self.name = name
-        self.isPrivate = isPrivate
-        self.posts = []
-        self.creatorID = creator
-        self.collaborators = []
+    var id: String {
+        boxID ?? NSUUID().uuidString
     }
     
     var postCount: Int {
-        posts.count
+        posts?.count ?? 0
     }
     
-    func canEditCollaborators(user: User) -> Bool {
-        user.id == creatorID
-    }
+//    func canEditCollaborators(user: User) -> Bool {
+//       //  user.id == ownerID
+//    }
     
-    func addCollaborator(user: User) {
-        if !collaborators.contains(where: { $0.id == user.id }) {
-            // collaborators.append(user)
-        }
-    }
-    
-    func removeCollaborator(user: User) {
-        // collaborators.removeAll(where: { $0.id == user.id })
-    }
+//    func addCollaborator(user: User) {
+//        if !collaborators.contains(where: { $0.id == user.id }) {
+//            // collaborators.append(user)
+//        }
+//    }
+//    
+//    func removeCollaborator(user: User) {
+//        // collaborators.removeAll(where: { $0.id == user.id })
+//    }
 }

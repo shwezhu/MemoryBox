@@ -16,7 +16,7 @@ struct CollaboratorsView: View {
             ForEach(users.prefix(2)) { user in
                 Group {
                     if let url = user.avatarURL {
-                        AsyncImage(url: url) { image in
+                        AsyncImage(url: URL(string: url)) { image in
                             image.resizable().scaledToFit()
                         } placeholder: {
                             placeholderView(name: user.name)

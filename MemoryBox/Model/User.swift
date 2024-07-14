@@ -8,14 +8,14 @@
 import Foundation
 import SwiftData
 
-class User: Identifiable {
-    var id: UUID
+struct User: Identifiable {
+    var id: String
     var name: String
-    var avatarURL: URL?
+    var avatarURL: String?
     var boxes: [Box]
     
-    init(name: String, avatarURL: URL? = nil) {
-        self.id = UUID()
+    init(id: String, name: String, avatarURL: String? = nil) {
+        self.id = id
         self.name = name
         self.avatarURL = avatarURL
         self.boxes = []
