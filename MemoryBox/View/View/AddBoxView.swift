@@ -10,11 +10,28 @@ import SwiftData
 
 struct AddBoxView: View {
     @Environment(\.dismiss) private var dismiss
-    @State private var box = Box()
+    
+    @State private var box: Box
 
     var body: some View {
         NavigationStack {
-            BoxFormView(box: box)
+            Form {
+                Section {
+                    TextField("Name", text: $box.name)
+                }
+                Section {
+                    Toggle(isOn: $box.isPrivate) {
+                        Label {
+                            Text(box.isPrivate ? "Private" : "Public")
+                                .foregroundColor(.primary)
+                        } icon: {
+                            Image(systemName: box.isPrivate ? "lock.fill" : "lock.open.fill")
+                                .foregroundStyle(Color.black)
+                        }
+                    }
+                    .tint(.green)
+                }
+            }
                 .toolbar {
                     ToolbarItem(placement: .cancellationAction) {
                         Button(action: cancel) {
@@ -32,7 +49,6 @@ struct AddBoxView: View {
     }
     
     private func commit() {
-        // context.insert(box)
         dismiss()
     }
     

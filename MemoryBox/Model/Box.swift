@@ -8,7 +8,7 @@
 import Foundation
 import SwiftData
 
-class Box: Identifiable {
+struct Box: Identifiable {
     var id: UUID
     var name: String
     var isPrivate: Bool
