@@ -154,11 +154,11 @@
 			isa = PBXGroup;
 			children = (
 				635874222C43F82300BECF4C /* Auth */,
-				635874302C44865B00BECF4C /* Box */,
-				635874272C44682E00BECF4C /* Utils */,
-				638118552C3AC7A0007DC4DC /* View */,
 				638118542C3AC791007DC4DC /* Home */,
-				638118562C3AC7C6007DC4DC /* BoxDetail */,
+				635874302C44865B00BECF4C /* Box */,
+				638118562C3AC7C6007DC4DC /* PostList */,
+				638118552C3AC7A0007DC4DC /* View */,
+				635874272C44682E00BECF4C /* Utils */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -180,7 +180,7 @@
 			path = View;
 			sourceTree = "<group>";
 		};
-		638118562C3AC7C6007DC4DC /* BoxDetail */ = {
+		638118562C3AC7C6007DC4DC /* PostList */ = {
 			isa = PBXGroup;
 			children = (
 				638118512C3AC533007DC4DC /* BoxDetailView.swift */,
@@ -188,7 +188,7 @@
 				638118592C3C2D01007DC4DC /* ImageGridView.swift */,
 				6381185B2C3F449A007DC4DC /* CustomAsyncImageView.swift */,
 			);
-			path = BoxDetail;
+			path = PostList;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
