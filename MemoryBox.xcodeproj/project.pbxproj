@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		635874242C43F83600BECF4C /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635874232C43F83600BECF4C /* LoginView.swift */; };
 		638118352C38C183007DC4DC /* MemoryBoxApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638118342C38C183007DC4DC /* MemoryBoxApp.swift */; };
 		638118392C38C185007DC4DC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 638118382C38C185007DC4DC /* Assets.xcassets */; };
 		6381183C2C38C185007DC4DC /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6381183B2C38C185007DC4DC /* Preview Assets.xcassets */; };
@@ -26,6 +27,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		635874232C43F83600BECF4C /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		638118312C38C183007DC4DC /* MemoryBox.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MemoryBox.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		638118342C38C183007DC4DC /* MemoryBoxApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryBoxApp.swift; sourceTree = "<group>"; };
 		638118382C38C185007DC4DC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -56,6 +58,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		635874222C43F82300BECF4C /* Auth */ = {
+			isa = PBXGroup;
+			children = (
+				635874232C43F83600BECF4C /* LoginView.swift */,
+			);
+			path = Auth;
+			sourceTree = "<group>";
+		};
 		638118282C38C183007DC4DC = {
 			isa = PBXGroup;
 			children = (
@@ -106,6 +116,7 @@
 		638118532C3AC548007DC4DC /* View */ = {
 			isa = PBXGroup;
 			children = (
+				635874222C43F82300BECF4C /* Auth */,
 				638118552C3AC7A0007DC4DC /* View */,
 				638118542C3AC791007DC4DC /* Home */,
 				638118562C3AC7C6007DC4DC /* BoxDetail */,
@@ -216,6 +227,7 @@
 				638118452C397D34007DC4DC /* Box.swift in Sources */,
 				638118492C397D87007DC4DC /* User.swift in Sources */,
 				638118352C38C183007DC4DC /* MemoryBoxApp.swift in Sources */,
+				635874242C43F83600BECF4C /* LoginView.swift in Sources */,
 				6381185C2C3F449A007DC4DC /* CustomAsyncImageView.swift in Sources */,
 				638118432C38C1D1007DC4DC /* BoxView.swift in Sources */,
 				638118522C3AC533007DC4DC /* BoxDetailView.swift in Sources */,
