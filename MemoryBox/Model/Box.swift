@@ -8,7 +8,6 @@
 import Foundation
 import SwiftData
 
-@Model
 class Box: Identifiable {
     var id: UUID
     var name: String

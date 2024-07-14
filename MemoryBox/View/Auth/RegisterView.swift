@@ -9,11 +9,7 @@ import SwiftUI
 
 struct RegisterView: View {
     @Environment(\.dismiss) private var dismiss
-    
-    @State private var fullname = ""
-    @State private var email = ""
-    @State private var username = ""
-    @State private var password = ""
+    @State private var viewModel = ViewModel()
     
     var body: some View {
         VStack {
@@ -23,21 +19,21 @@ struct RegisterView: View {
                 .fontWeight(.bold)
                 .padding(.vertical, 36)
             VStack {
-                TextField("Enter your email", text: $email)
+                TextField("Enter your email", text: $viewModel.email)
                     .modifier(AuthTextFieldModifier())
                 
-                TextField("Enter your password", text: $password)
+                TextField("Enter your password", text: $viewModel.password)
                     .modifier(AuthTextFieldModifier())
                 
-                TextField("Enter your fullname", text: $fullname)
+                TextField("Enter your fullname", text: $viewModel.fullname)
                     .modifier(AuthTextFieldModifier())
                 
-                TextField("Enter your username", text: $username)
+                TextField("Enter your username", text: $viewModel.username)
                     .modifier(AuthTextFieldModifier())
             }
             
             Button {
-                
+                // Task { try await viewModel.createUser() }
             } label: {
                 Text("Sign Up")
                     .modifier(AuthButtonModifier())

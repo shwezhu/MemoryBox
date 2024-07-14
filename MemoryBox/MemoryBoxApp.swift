@@ -11,8 +11,7 @@ import SwiftUI
 struct MemoryBoxApp: App {
     var body: some Scene {
         WindowGroup {
-            HomeView()
+            ContenView()
         }
-        .modelContainer(for: [User.self, Box.self, Post.self])
     }
 }

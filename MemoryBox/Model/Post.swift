@@ -8,7 +8,6 @@
 import Foundation
 import SwiftData
 
-@Model
 class Post: Identifiable { // ‘ForEach’ requires xxx conform to ‘Identifiable’
     var id: UUID
     var title: String
