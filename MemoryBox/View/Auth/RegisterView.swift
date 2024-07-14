@@ -1,5 +1,5 @@
 //
-//  LoginView.swift
+//  RegisterView.swift
 //  MemoryBox
 //
 //  Created by David Zhu on 2024-07-14.
@@ -7,14 +7,18 @@
 
 import SwiftUI
 
-struct LoginView: View {
+struct RegisterView: View {
+    @Environment(\.dismiss) private var dismiss
+    
+    @State private var fullname = ""
     @State private var email = ""
+    @State private var username = ""
     @State private var password = ""
     
     var body: some View {
-        NavigationStack {
+        VStack {
             Spacer()
-            Text("Welcome Back")
+            Text("Register New Account")
                 .font(.title)
                 .fontWeight(.bold)
                 .padding(.vertical, 36)
@@ -24,31 +28,30 @@ struct LoginView: View {
                 
                 TextField("Enter your password", text: $password)
                     .modifier(AuthTextFieldModifier())
-            }
-            
-            NavigationLink(destination: EmptyView()) {
-                Text("Forgot your password")
-                    .font(.footnote)
-                    .fontWeight(.semibold)
-                    .padding(.vertical)
-                    .padding(.trailing, 28)
-                    .foregroundStyle(Color.black)
-                    .frame(maxWidth: .infinity, alignment: .trailing)
+                
+                TextField("Enter your fullname", text: $fullname)
+                    .modifier(AuthTextFieldModifier())
+                
+                TextField("Enter your username", text: $username)
+                    .modifier(AuthTextFieldModifier())
             }
             
             Button {
                 
             } label: {
-                Text("Login")
+                Text("Sign Up")
                     .modifier(AuthButtonModifier())
             }
+            .padding(.vertical)
             
             Spacer()
             Divider()
-            NavigationLink(destination: RegisterView()) {
+            Button {
+                dismiss()
+            } label: {
                 HStack {
-                    Text("Don't have an account?")
-                    Text("Sign Up")
+                    Text("Already have an account?")
+                    Text("Login")
                         .fontWeight(.semibold)
                 }
                 .font(.footnote)
@@ -60,5 +63,5 @@ struct LoginView: View {
 }
 
 #Preview {
-    LoginView()
+    RegisterView()
 }
