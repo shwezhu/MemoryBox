@@ -30,6 +30,7 @@ extension BoxForm {
             }
         }
         
+        /// guarantee createBox() will run on the main thread.
         @MainActor
         private func createBox() async throws {
             // Implementation for creating a new box

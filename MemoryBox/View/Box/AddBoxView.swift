@@ -12,3 +12,7 @@ struct AddBoxView: View {
         BoxForm(viewModel: BoxForm.ViewModel())
     }
 }
+
+//#Preview {
+//    AddBoxView()
+//}

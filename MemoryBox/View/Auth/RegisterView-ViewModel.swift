@@ -15,7 +15,7 @@ extension RegisterView {
         var username = ""
         var password = ""
         
-        // What is @MainActor ???
+        /// guarantee createUser() will run on the main thread.
         @MainActor
         func createUser() async throws {
             
