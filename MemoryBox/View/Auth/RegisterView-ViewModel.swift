@@ -11,11 +11,9 @@ extension RegisterView {
         var selectedImage: UIImage? = nil
         var avatarURL: String? = nil
         
-        // 注册过程中的状态
         var isLoading: Bool = false
         var errorMessage: String? = nil
         
-        /// 检查表单是否有效
         var isFormValid: Bool {
             let isValid = !fullname.isEmpty &&
                    !email.isEmpty && isValidEmail(email) &&
@@ -24,7 +22,6 @@ extension RegisterView {
             return isValid
         }
         
-        /// 简单的邮箱格式验证
         private func isValidEmail(_ email: String) -> Bool {
             let emailRegEx = #"^[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$"#
             let predicate = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
@@ -32,32 +29,31 @@ extension RegisterView {
             return isValid
         }
         
-        /// 创建用户的方法，确保在主线程执行
         @MainActor
         func createUser() async throws {
-            print("Starting user creation process")
+            //print("Starting user creation process")
             isLoading = true
             errorMessage = nil
             
             do {
                 // 如果用户选择了头像，先上传头像
                 if let image = selectedImage {
-                    print("User selected an avatar image, preparing to upload")
+                    //print("User selected an avatar image, preparing to upload")
                     guard let imageData = image.jpegData(compressionQuality: 0.8) else {
-                        print("Failed to convert image to JPEG data")
+                        //print("Failed to convert image to JPEG data")
                         throw URLError(.badURL)
                     }
                     let fileName = "\(UUID().uuidString).jpg"
-                    print("Requesting presigned URL for file: \(fileName)")
+                    //print("Requesting presigned URL for file: \(fileName)")
                     guard let response = try await getPresignedUrl(fileName: fileName, fileType: "image/jpeg") else {
                         print("Failed to get presigned URL")
                         throw URLError(.badServerResponse)
                     }
 
-                    print("Uploading image to presigned URL")
+                    //print("Uploading image to presigned URL")
                     try await uploadImage(data: imageData, to: response.presignedUrl)
                     avatarURL = response.imageUrl
-                    print("Image uploaded successfully, avatar URL: \(avatarURL ?? "N/A")")
+                    //print("Image uploaded successfully, avatar URL: \(avatarURL ?? "N/A")")
                 } else {
                     print("No avatar image selected")
                 }
@@ -70,11 +66,11 @@ extension RegisterView {
                     "avatarURL": avatarURL ?? ""
                 ]
                 
-                print("Attempting to register user with data: \(registrationData)")
+                //print("Attempting to register user with data: \(registrationData)")
                 try await registerUser(with: registrationData)
-                print("User registration successful")
+                //print("User registration successful")
             } catch {
-                print("Error during user creation: \(error.localizedDescription)")
+                //print("Error during user creation: \(error.localizedDescription)")
                 errorMessage = error.localizedDescription
             }
             
@@ -82,7 +78,7 @@ extension RegisterView {
         }
         
         private func getPresignedUrl(fileName: String, fileType: String) async throws -> PresignedUrlResponse? {
-            print("Getting presigned URL for file: \(fileName), type: \(fileType)")
+            //print("Getting presigned URL for file: \(fileName), type: \(fileType)")
             var components = URLComponents(string: "http://localhost:5190/api/auth/presigned-url")!
 
             components.queryItems = [
@@ -95,7 +91,7 @@ extension RegisterView {
                 throw URLError(.badURL)
             }
             
-            print("Sending request to: \(url.absoluteString)")
+            //print("Sending request to: \(url.absoluteString)")
             let (data, response) = try await URLSession.shared.data(from: url)
             
             guard let httpResponse = response as? HTTPURLResponse,
@@ -105,12 +101,12 @@ extension RegisterView {
             }
             
             let presignedUrlResponse = try JSONDecoder().decode(PresignedUrlResponse.self, from: data)
-            print("Received presigned URL: \(presignedUrlResponse.presignedUrl)")
+            //print("Received presigned URL: \(presignedUrlResponse.presignedUrl)")
             return presignedUrlResponse
         }
         
         private func uploadImage(data: Data, to urlString: String) async throws {
-            print("Uploading image to URL: \(urlString)")
+            //print("Uploading image to URL: \(urlString)")
             guard let url = URL(string: urlString) else {
                 print("Invalid upload URL")
                 throw URLError(.badURL)
@@ -128,11 +124,11 @@ extension RegisterView {
                 throw URLError(.badServerResponse)
             }
             
-            print("Image upload successful")
+            //print("Image upload successful")
         }
         
         private func registerUser(with data: [String: Any]) async throws {
-            print("Registering user with data: \(data)")
+            //print("Registering user with data: \(data)")
             guard let url = URL(string: "http://localhost:5190/api/auth/register") else {
                 print("Invalid registration URL")
                 throw URLError(.badURL)
@@ -146,24 +142,20 @@ extension RegisterView {
             let jsonData = try JSONSerialization.data(withJSONObject: data)
             request.httpBody = jsonData
             
-            print("Sending registration request to: \(url.absoluteString)")
-            // 发送网络请求
+            //print("Sending registration request to: \(url.absoluteString)")
             let (responseData, response) = try await URLSession.shared.data(for: request)
             
-            // 提前定义 httpResponse 变量
             guard let httpResponse = response as? HTTPURLResponse else {
-                print("Received invalid response type")
+                //print("Received invalid response type")
                 throw URLError(.badServerResponse)
             }
             
-            print("Received response with status code: \(httpResponse.statusCode)")
+            //print("Received response with status code: \(httpResponse.statusCode)")
             if 200..<300 ~= httpResponse.statusCode {
-                print("Registration successful")
-                // 注册成功，处理响应（如保存 token 等）
+                //print("Registration successful")
             } else {
-                // 解析错误信息
                 if let json = try? JSONSerialization.jsonObject(with: responseData) as? [String: Any],
-                   let message = json["message"] as? String {
+                    let message = json["message"] as? String {
                     print("Registration failed with message: \(message)")
                     throw NSError(domain: "", code: httpResponse.statusCode, userInfo: [NSLocalizedDescriptionKey: message])
                 } else {
