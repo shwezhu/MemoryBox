@@ -1,15 +1,14 @@
-//
-//  RegisterView.swift
-//  MemoryBox
-//
-//  Created by David Zhu on 2024-07-14.
-//
-
 import SwiftUI
 
 struct RegisterView: View {
     @Environment(\.dismiss) private var dismiss
     @State private var viewModel = ViewModel()
+    
+    // 控制显示图片选择器的状态
+    @State private var showImagePicker = false
+    
+    // 控制显示错误信息的状态
+    @State private var showErrorAlert = false
     
     var body: some View {
         VStack {
@@ -18,27 +17,94 @@ struct RegisterView: View {
                 .font(.title)
                 .fontWeight(.bold)
                 .padding(.vertical, 36)
+            
+            // 头像选择区域
             VStack {
-                TextField("Enter your email", text: $viewModel.email)
-                    .modifier(AuthTextFieldModifier())
+                if let image = viewModel.selectedImage {
+                    Image(uiImage: image)
+                        .resizable()
+                        .scaledToFill()
+                        .frame(width: 120, height: 120)
+                        .clipShape(Circle())
+                        .overlay(Circle().stroke(Color.gray, lineWidth: 2))
+                        .onTapGesture {
+                            showImagePicker = true
+                        }
+                } else {
+                    // 默认头像
+                    Circle()
+                        .fill(Color.gray.opacity(0.3))
+                        .frame(width: 120, height: 120)
+                        .overlay(
+                            Image(systemName: "camera")
+                                .font(.title)
+                                .foregroundColor(.white)
+                        )
+                        .onTapGesture {
+                            showImagePicker = true
+                        }
+                }
+            }
+            .padding(.bottom, 24)
+            
+            VStack(alignment: .leading, spacing: 10) {
+                HStack(alignment: .center) {
+                    Text("Email")
+                        .font(.caption)
+                        .frame(width: 50)
+
+                    TextField("Enter your email", text: $viewModel.email)
+                        .modifier(AuthTextFieldModifier())
+                        .keyboardType(.emailAddress)
+                        .autocapitalization(.none)
+                }
                 
-                TextField("Enter your password", text: $viewModel.password)
-                    .modifier(AuthTextFieldModifier())
+                HStack(alignment: .center) {
+                    Text("Password")
+                        .font(.caption)
+                    SecureField("Enter your password", text: $viewModel.password)
+                        .modifier(AuthTextFieldModifier())
+                }
                 
-                TextField("Enter your fullname", text: $viewModel.fullname)
-                    .modifier(AuthTextFieldModifier())
+                HStack(alignment: .center) {
+                    Text("Full Name")
+                        .font(.caption)
+                    TextField("Enter your fullname", text: $viewModel.fullname)
+                        .modifier(AuthTextFieldModifier())
+                }
                 
-                TextField("Enter your username", text: $viewModel.username)
-                    .modifier(AuthTextFieldModifier())
+                HStack(alignment: .center) {
+                    Text("Username")
+                        .font(.caption)
+                    TextField("Enter your username", text: $viewModel.username)
+                        .modifier(AuthTextFieldModifier())
+                        .autocapitalization(.none)
+                }
             }
             
-            Button {
-                // Task { try await viewModel.createUser() }
-            } label: {
-                Text("Sign Up")
-                    .modifier(AuthButtonModifier())
+            if viewModel.isLoading {
+                ProgressView()
+                    .padding(.vertical)
+            } else {
+                Button {
+                    Task {
+                        do {
+                            try await viewModel.createUser()
+                            // 注册成功后，自动 dismiss 或跳转
+                            dismiss()
+                        } catch {
+                            // 显示错误信息
+                            showErrorAlert = true
+                        }
+                    }
+                } label: {
+                    Text("Sign Up")
+                        .modifier(AuthButtonModifier())
+                }
+                .padding(.vertical)
+                .disabled(!viewModel.isFormValid)
+                .opacity(viewModel.isFormValid ? 1.0 : 0.5)
             }
-            .padding(.vertical)
             
             Spacer()
             Divider()
@@ -55,9 +121,19 @@ struct RegisterView: View {
             }
             .padding(.vertical, 16)
         }
+        .padding()
+        .sheet(isPresented: $showImagePicker) {
+            ImagePicker(selectedImage: $viewModel.selectedImage)
+        }
+        .alert(isPresented: $showErrorAlert) {
+            Alert(title: Text("Error"), message: Text(viewModel.errorMessage ?? "Unknown error"), dismissButton: .default(Text("OK")))
+        }
     }
 }
 
-#Preview {
-    RegisterView()
+struct RegisterView_Previews: PreviewProvider {
+    static var previews: some View {
+        RegisterView()
+    }
 }
+

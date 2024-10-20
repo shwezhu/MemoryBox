@@ -31,6 +31,7 @@
 		6381185C2C3F449A007DC4DC /* CustomAsyncImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6381185B2C3F449A007DC4DC /* CustomAsyncImageView.swift */; };
 		6381185E2C3F5977007DC4DC /* CollaboratorsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6381185D2C3F5977007DC4DC /* CollaboratorsView.swift */; };
 		638118612C3F5D20007DC4DC /* AddBoxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638118602C3F5D20007DC4DC /* AddBoxView.swift */; };
+		639643972CC2F51800A62CE0 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 639643962CC2F51800A62CE0 /* ImagePicker.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -59,6 +60,7 @@
 		6381185B2C3F449A007DC4DC /* CustomAsyncImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAsyncImageView.swift; sourceTree = "<group>"; };
 		6381185D2C3F5977007DC4DC /* CollaboratorsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollaboratorsView.swift; sourceTree = "<group>"; };
 		638118602C3F5D20007DC4DC /* AddBoxView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddBoxView.swift; sourceTree = "<group>"; };
+		639643962CC2F51800A62CE0 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -153,6 +155,7 @@
 		638118532C3AC548007DC4DC /* View */ = {
 			isa = PBXGroup;
 			children = (
+				639643952CC2F4EF00A62CE0 /* UIKit */,
 				635874222C43F82300BECF4C /* Auth */,
 				638118542C3AC791007DC4DC /* Home */,
 				635874302C44865B00BECF4C /* Box */,
@@ -189,6 +192,14 @@
 				6381185B2C3F449A007DC4DC /* CustomAsyncImageView.swift */,
 			);
 			path = PostList;
+			sourceTree = "<group>";
+		};
+		639643952CC2F4EF00A62CE0 /* UIKit */ = {
+			isa = PBXGroup;
+			children = (
+				639643962CC2F51800A62CE0 /* ImagePicker.swift */,
+			);
+			path = UIKit;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -274,6 +285,7 @@
 				638118522C3AC533007DC4DC /* BoxDetailView.swift in Sources */,
 				6381184E2C3A0F97007DC4DC /* HomeView.swift in Sources */,
 				638118612C3F5D20007DC4DC /* AddBoxView.swift in Sources */,
+				639643972CC2F51800A62CE0 /* ImagePicker.swift in Sources */,
 				6357CD5B2C44BBDC00522206 /* BoxForm.swift in Sources */,
 				6381185A2C3C2D01007DC4DC /* ImageGridView.swift in Sources */,
 				638118472C397D81007DC4DC /* Post.swift in Sources */,
