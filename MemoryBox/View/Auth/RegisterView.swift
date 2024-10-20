@@ -90,10 +90,8 @@ struct RegisterView: View {
                     Task {
                         do {
                             try await viewModel.createUser()
-                            // 注册成功后，自动 dismiss 或跳转
                             dismiss()
                         } catch {
-                            // 显示错误信息
                             showErrorAlert = true
                         }
                     }
