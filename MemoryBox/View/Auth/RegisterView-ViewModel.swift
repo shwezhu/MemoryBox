@@ -12,7 +12,7 @@ extension RegisterView {
         var avatarURL: String? = nil
         
         var isLoading: Bool = false
-        var errorMessage: String? = nil
+        var alertMessage: String? = nil
         
         var isFormValid: Bool {
             let isValid = !fullname.isEmpty &&
@@ -32,25 +32,21 @@ extension RegisterView {
         @MainActor
         func createUser() async throws {
             isLoading = true
-            errorMessage = nil
+            alertMessage = nil
             
             do {
                 // 如果用户选择了头像，先上传头像
                 if let image = selectedImage {
                     guard let imageData = image.jpegData(compressionQuality: 0.8) else {
-                        errorMessage = "Failed to convert image to JPEG data"
                         throw URLError(.badURL)
                     }
                     let fileName = "\(UUID().uuidString).jpg"
                     guard let response = try await getPresignedUrl(fileName: fileName, fileType: "image/jpeg") else {
-                        errorMessage = "Failed to get presigned URL"
                         throw URLError(.badServerResponse)
                     }
 
                     try await uploadImage(data: imageData, to: response.presignedUrl)
                     avatarURL = response.imageUrl
-                } else {
-                    print("No avatar image selected")
                 }
                 
                 let registrationData: [String: Any] = [
@@ -63,14 +59,14 @@ extension RegisterView {
                 
                 try await registerUser(with: registrationData)
             } catch {
-                errorMessage = error.localizedDescription
+                alertMessage = error.localizedDescription
             }
             
             isLoading = false
         }
         
         private func getPresignedUrl(fileName: String, fileType: String) async throws -> PresignedUrlResponse? {
-            var components = URLComponents(string: "http://localhost:5190/api/auth/presigned-url")!
+            var components = URLComponents(string: "\(Config.host)/api/auth/presigned-url")!
 
             components.queryItems = [
                 URLQueryItem(name: "fileName", value: fileName),
@@ -78,7 +74,6 @@ extension RegisterView {
             ]
             
             guard let url = components.url else {
-                errorMessage = "Failed to construct URL for presigned URL request"
                 throw URLError(.badURL)
             }
             
@@ -87,7 +82,6 @@ extension RegisterView {
             
             guard let httpResponse = response as? HTTPURLResponse,
                   200..<300 ~= httpResponse.statusCode else {
-                errorMessage = "Received invalid response upload image: \(response)"
                 throw URLError(.badServerResponse)
             }
             
@@ -99,7 +93,6 @@ extension RegisterView {
         private func uploadImage(data: Data, to urlString: String) async throws {
             //print("Uploading image to URL: \(urlString)")
             guard let url = URL(string: urlString) else {
-                errorMessage = "Invalid upload URL"
                 throw URLError(.badURL)
             }
             
@@ -111,14 +104,12 @@ extension RegisterView {
             let (_, response) = try await URLSession.shared.data(for: request)
             
             guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 || httpResponse.statusCode == 204 else {
-                errorMessage = "Received invalid response for image upload: \(response)"
                 throw URLError(.badServerResponse)
             }
         }
         
         private func registerUser(with data: [String: Any]) async throws {
-            guard let url = URL(string: "http://localhost:5190/api/auth/register") else {
-                errorMessage = "Invalid registration URL"
+            guard let url = URL(string: "\(Config.host)/api/auth/register") else {
                 throw URLError(.badURL)
             }
             
@@ -134,7 +125,6 @@ extension RegisterView {
             let (responseData, response) = try await URLSession.shared.data(for: request)
             
             guard let httpResponse = response as? HTTPURLResponse else {
-                errorMessage = "Received invalid response for registration: \(response)"
                 throw URLError(.badServerResponse)
             }
             
@@ -144,10 +134,8 @@ extension RegisterView {
             } else {
                 if let json = try? JSONSerialization.jsonObject(with: responseData) as? [String: Any],
                     let message = json["message"] as? String {
-                    errorMessage = "Registration failed with message: \(message)"
                     throw NSError(domain: "", code: httpResponse.statusCode, userInfo: [NSLocalizedDescriptionKey: message])
                 } else {
-                    errorMessage = "Received invalid response for registration: \(response)"
                     throw URLError(.badServerResponse)
                 }
             }

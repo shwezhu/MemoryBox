@@ -9,9 +9,15 @@ import SwiftUI
 
 @main
 struct MemoryBoxApp: App {
+    @State private var isLoggedIn = UserDefaults.standard.string(forKey: "jwtToken") != nil
+    
     var body: some Scene {
         WindowGroup {
-            ContenView()
+            if isLoggedIn {
+                HomeView()
+            } else {
+                LoginView(isLoggedIn: $isLoggedIn)
+            }
         }
     }
 }

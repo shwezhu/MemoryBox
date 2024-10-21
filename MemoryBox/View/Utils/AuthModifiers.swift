@@ -10,6 +10,7 @@ import SwiftUI
 struct AuthTextFieldModifier: ViewModifier {
     func body(content: Content) -> some View {
         content
+            .textInputAutocapitalization(.never)
             .font(.subheadline)
             .padding(12)
             .background(Color(.systemGray6))

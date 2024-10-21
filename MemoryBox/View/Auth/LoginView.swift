@@ -4,11 +4,11 @@
 //
 //  Created by David Zhu on 2024-07-14.
 //
-
 import SwiftUI
 
 struct LoginView: View {
     @State private var viewModel = ViewModel()
+    @Binding var isLoggedIn: Bool
     
     var body: some View {
         NavigationStack {
@@ -18,10 +18,10 @@ struct LoginView: View {
                 .fontWeight(.bold)
                 .padding(.vertical, 36)
             VStack {
-                TextField("Enter your email", text: $viewModel.email)
+                TextField("Enter your username", text: $viewModel.username)
                     .modifier(AuthTextFieldModifier())
                 
-                TextField("Enter your password", text: $viewModel.password)
+                SecureField("Enter your password", text: $viewModel.password)
                     .modifier(AuthTextFieldModifier())
             }
             
@@ -36,7 +36,10 @@ struct LoginView: View {
             }
             
             Button {
-                
+                Task {
+                    await viewModel.login()
+                    isLoggedIn = viewModel.isLoggedIn
+                }
             } label: {
                 Text("Login")
                     .modifier(AuthButtonModifier())
@@ -55,9 +58,14 @@ struct LoginView: View {
             }
             .padding(.vertical, 16)
         }
+        .alert("Login Error", isPresented: $viewModel.showAlert) {
+            Button("OK", role: .cancel) { }
+        } message: {
+            Text(viewModel.alertMessage)
+        }
     }
 }
 
-#Preview {
-    LoginView()
-}
+//#Preview {
+//    LoginView()
+//}

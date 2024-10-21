@@ -31,7 +31,6 @@ struct RegisterView: View {
                             showImagePicker = true
                         }
                 } else {
-                    // 默认头像
                     Circle()
                         .fill(Color.gray.opacity(0.3))
                         .frame(width: 120, height: 120)
@@ -124,7 +123,7 @@ struct RegisterView: View {
             ImagePicker(selectedImage: $viewModel.selectedImage)
         }
         .alert(isPresented: $showErrorAlert) {
-            Alert(title: Text("Error"), message: Text(viewModel.errorMessage ?? "Unknown error"), dismissButton: .default(Text("OK")))
+            Alert(title: Text("Error"), message: Text(viewModel.alertMessage ?? "Unknown error"), dismissButton: .default(Text("OK")))
         }
     }
 }
