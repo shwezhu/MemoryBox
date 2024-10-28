@@ -32,6 +32,8 @@
 		638118612C3F5D20007DC4DC /* AddBoxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638118602C3F5D20007DC4DC /* AddBoxView.swift */; };
 		639643972CC2F51800A62CE0 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 639643962CC2F51800A62CE0 /* ImagePicker.swift */; };
 		639643992CC56D2C00A62CE0 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 639643982CC56D2C00A62CE0 /* Config.swift */; };
+		6396439C2CCF3EAB00A62CE0 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6396439B2CCF3EAB00A62CE0 /* NetworkManager.swift */; };
+		6396439E2CCF422C00A62CE0 /* HomeView-ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6396439D2CCF422C00A62CE0 /* HomeView-ViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -61,6 +63,8 @@
 		638118602C3F5D20007DC4DC /* AddBoxView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddBoxView.swift; sourceTree = "<group>"; };
 		639643962CC2F51800A62CE0 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		639643982CC56D2C00A62CE0 /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
+		6396439B2CCF3EAB00A62CE0 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		6396439D2CCF422C00A62CE0 /* HomeView-ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HomeView-ViewModel.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -123,6 +127,7 @@
 		638118332C38C183007DC4DC /* MemoryBox */ = {
 			isa = PBXGroup;
 			children = (
+				6396439A2CCF3E6400A62CE0 /* Network */,
 				6381184A2C397D93007DC4DC /* Model */,
 				638118532C3AC548007DC4DC /* View */,
 				638118342C38C183007DC4DC /* MemoryBoxApp.swift */,
@@ -172,6 +177,7 @@
 				6381184D2C3A0F97007DC4DC /* HomeView.swift */,
 				638118422C38C1D1007DC4DC /* BoxView.swift */,
 				6381185D2C3F5977007DC4DC /* CollaboratorsView.swift */,
+				6396439D2CCF422C00A62CE0 /* HomeView-ViewModel.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -200,6 +206,14 @@
 				639643962CC2F51800A62CE0 /* ImagePicker.swift */,
 			);
 			path = UIKit;
+			sourceTree = "<group>";
+		};
+		6396439A2CCF3E6400A62CE0 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				6396439B2CCF3EAB00A62CE0 /* NetworkManager.swift */,
+			);
+			path = Network;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -284,11 +298,13 @@
 				638118522C3AC533007DC4DC /* BoxDetailView.swift in Sources */,
 				6381184E2C3A0F97007DC4DC /* HomeView.swift in Sources */,
 				638118612C3F5D20007DC4DC /* AddBoxView.swift in Sources */,
+				6396439C2CCF3EAB00A62CE0 /* NetworkManager.swift in Sources */,
 				639643992CC56D2C00A62CE0 /* Config.swift in Sources */,
 				639643972CC2F51800A62CE0 /* ImagePicker.swift in Sources */,
 				6357CD5B2C44BBDC00522206 /* BoxForm.swift in Sources */,
 				6381185A2C3C2D01007DC4DC /* ImageGridView.swift in Sources */,
 				638118472C397D81007DC4DC /* Post.swift in Sources */,
+				6396439E2CCF422C00A62CE0 /* HomeView-ViewModel.swift in Sources */,
 				6381184C2C397FE0007DC4DC /* test.swift in Sources */,
 				635874262C44664300BECF4C /* RegisterView.swift in Sources */,
 				635874292C44687900BECF4C /* AuthModifiers.swift in Sources */,

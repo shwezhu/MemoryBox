@@ -38,3 +38,18 @@ struct Box: Identifiable {
 //        // collaborators.removeAll(where: { $0.id == user.id })
 //    }
 }
+
+struct BoxResponse: Codable {
+    let boxId: Int
+    let boxName: String
+    let isPrivate: Bool
+    let ownerId: Int
+    let createdDate: String
+    let owner: OwnerResponse?
+}
+
+struct OwnerResponse: Codable {
+    let fullName: String
+    let profilePictureUrl: String
+}
+

@@ -10,21 +10,44 @@ import SwiftData
 
 struct HomeView: View {
     @Environment(\.modelContext) var context
+    @State private var viewModel = ViewModel()
     @State private var isAddBoxSheetPresented = false
-    @State private var searchText = ""
-    let boxes: [Box] = []
     
     var body: some View {
         NavigationStack {
-            boxGrid
-                .searchable(text: $searchText)
-                .navigationTitle("Memory Boxes")
-                .sheet(isPresented: $isAddBoxSheetPresented) {
-                    AddBoxView()
+            if viewModel.isLoading {
+                ProgressView()
+            } else if let error = viewModel.error {
+                VStack {
+                    Text(error)
+                        .foregroundColor(.red)
+                    Button("Retry") {
+                        Task {
+                            await viewModel.fetchBoxes()
+                        }
+                    }
+                    .padding()
                 }
-                .overlay(alignment: .bottomLeading) {
-                    addBoxButton
-                }
+            } else {
+                boxGrid
+            }
+        }
+        .searchable(text: $viewModel.searchText)
+        .navigationTitle("Memory Boxes")
+        .sheet(isPresented: $isAddBoxSheetPresented) {
+            AddBoxView()
+        }
+        .overlay(alignment: .bottomLeading) {
+            addBoxButton
+        }
+        .onAppear {
+            /// TASK ???
+            Task {
+                await viewModel.fetchBoxes()
+            }
+        }
+        .refreshable {
+            await viewModel.fetchBoxes()
         }
     }
     
@@ -33,7 +56,7 @@ struct HomeView: View {
         // LazyVGrid 不提供滚动功能
         return ScrollView {
             LazyVGrid(columns: columns) {
-                ForEach(boxes) { box in
+                ForEach(viewModel.boxes) { box in
                     NavigationLink(destination: BoxDetailView(boxName: box.name, posts: box.posts ?? [])) {
                         BoxView(box: box)
                     }
