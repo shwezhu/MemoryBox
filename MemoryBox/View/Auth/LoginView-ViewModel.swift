@@ -44,6 +44,7 @@ extension LoginView {
                 
                 // 保存JWT令牌
                 UserDefaults.standard.set(loginResponse.token, forKey: "jwtToken")
+                UserDefaults.standard.set(loginResponse.userId, forKey: "userId")
                 isLoggedIn = true
                 
             } catch {
@@ -55,6 +56,7 @@ extension LoginView {
 }
 
 struct LoginResponse: Codable {
-    let token: String?
+    let token: String
+    let userId: String
     let message: String
 }

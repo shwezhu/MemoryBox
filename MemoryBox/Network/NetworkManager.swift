@@ -14,6 +14,7 @@ enum NetworkError: Error {
     case noData
     case decodingError
     case unauthorized
+    case badrequest
     case unknown
 }
 
@@ -37,6 +38,13 @@ class NetworkManager {
         request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
         
         let (data, response) = try await URLSession.shared.data(for: request)
+        
+//        // 将 Data 转换为 String
+//        if let jsonString = String(data: data, encoding: .utf8) {
+//            print("响应 JSON: \(jsonString)")
+//        } else {
+//            print("无法将 data 转换为字符串。")
+//        }
         
         guard let httpResponse = response as? HTTPURLResponse else {
             throw NetworkError.unknown

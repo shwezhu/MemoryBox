@@ -12,6 +12,7 @@ struct HomeView: View {
     @Environment(\.modelContext) var context
     @State private var viewModel = ViewModel()
     @State private var isAddBoxSheetPresented = false
+    @Binding var isLoggedIn: Bool
     
     var body: some View {
         NavigationStack {
@@ -44,10 +45,12 @@ struct HomeView: View {
             /// TASK ???
             Task {
                 await viewModel.fetchBoxes()
+                isLoggedIn = viewModel.isLoggedIn
             }
         }
         .refreshable {
             await viewModel.fetchBoxes()
+            isLoggedIn = viewModel.isLoggedIn
         }
     }
     

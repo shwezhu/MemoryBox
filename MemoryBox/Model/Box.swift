@@ -13,7 +13,7 @@ struct Box: Identifiable {
     var name: String = ""
     var isPrivate: Bool = true
     var posts: [Post]?
-    let ownerID: String
+    let ownerId: String
     var collaborators: [User]?
     
     var id: String {
@@ -37,6 +37,11 @@ struct Box: Identifiable {
 //    func removeCollaborator(user: User) {
 //        // collaborators.removeAll(where: { $0.id == user.id })
 //    }
+}
+
+struct BoxPost: Encodable {
+    var boxName: String = ""
+    var isPrivate: Bool = false
 }
 
 struct BoxResponse: Codable {

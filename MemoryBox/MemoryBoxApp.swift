@@ -14,7 +14,7 @@ struct MemoryBoxApp: App {
     var body: some Scene {
         WindowGroup {
             if isLoggedIn {
-                HomeView()
+                HomeView(isLoggedIn: $isLoggedIn)
             } else {
                 LoginView(isLoggedIn: $isLoggedIn)
             }

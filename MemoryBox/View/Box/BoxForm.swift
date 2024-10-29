@@ -19,7 +19,7 @@ struct BoxForm: View {
         NavigationStack {
             Form {
                 Section {
-                    TextField("Name", text: $viewModel.box.name)
+                    TextField("Name", text: $viewModel.box.boxName)
                 }
                 Section {
                     Toggle(isOn: $viewModel.box.isPrivate) {

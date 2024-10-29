@@ -9,4 +9,6 @@ import Foundation
 
 enum Config {
     static let host = "http://localhost:5190"
+    static let baseUrl = "http://localhost:5190"
+    static let createBoxUrl = baseUrl + "/api/boxes"
 }

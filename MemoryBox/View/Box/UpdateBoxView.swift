@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct UpdateBoxView: View {
-    let box: Box
+    let box: BoxPost
     
     var body: some View {
         BoxForm(viewModel: BoxForm.ViewModel(box: box))
