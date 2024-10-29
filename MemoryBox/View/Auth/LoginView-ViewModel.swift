@@ -21,7 +21,7 @@ extension LoginView {
         @MainActor
         func login() async {
             do {
-                guard let url = URL(string: "\(Config.host)/api/auth/login") else {
+                guard let url = URL(string: Config.loginUrl) else {
                     throw URLError(.badURL)
                 }
                 
@@ -42,11 +42,9 @@ extension LoginView {
                 
                 let loginResponse = try JSONDecoder().decode(LoginResponse.self, from: data)
                 
-                // 保存JWT令牌
                 UserDefaults.standard.set(loginResponse.token, forKey: "jwtToken")
                 UserDefaults.standard.set(loginResponse.userId, forKey: "userId")
                 isLoggedIn = true
-                
             } catch {
                 alertMessage = "Login failed: \(error.localizedDescription)"
                 showAlert = true

@@ -93,8 +93,5 @@ extension HomeView {
                 isLoading = false
             }
         }
-        
-        
-        
     }
 }
