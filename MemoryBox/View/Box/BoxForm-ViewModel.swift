@@ -73,7 +73,7 @@ extension BoxForm {
             case 200...299:
                 print("Box created successfully")
             case 400:
-                throw NetworkError.badrequest
+                throw NetworkError.badRequest
             case 401:
                 throw NetworkError.unauthorized
             default:

@@ -6,14 +6,11 @@
 //
 
 import SwiftUI
-import SwiftData
 
 struct HomeView: View {
-    @Environment(\.modelContext) var context
     @State private var viewModel = ViewModel()
-    @State private var isAddBoxSheetPresented = false
-    @Binding var isLoggedIn: Bool
-    
+    @AppStorage("jwtToken") private var jwtToken: String?
+
     var body: some View {
         NavigationStack {
             if viewModel.isLoading {
@@ -22,6 +19,7 @@ struct HomeView: View {
                 VStack {
                     Text(error)
                         .foregroundColor(.red)
+                        .padding()
                     Button("Retry") {
                         Task {
                             await viewModel.fetchBoxes()
@@ -35,31 +33,28 @@ struct HomeView: View {
         }
         .searchable(text: $viewModel.searchText)
         .navigationTitle("Memory Boxes")
-        .sheet(isPresented: $isAddBoxSheetPresented) {
+        .sheet(isPresented: $viewModel.isAddBoxSheetPresented) {
             AddBoxView()
         }
         .overlay(alignment: .bottomLeading) {
             addBoxButton
         }
-        .onAppear {
-            /// TASK ???
-            Task {
-                await viewModel.fetchBoxes()
-                isLoggedIn = viewModel.isLoggedIn
-            }
+        .task {
+            // Fetch boxes when the view appears
+            await viewModel.fetchBoxes()
         }
         .refreshable {
+            // Refresh boxes when the user performs a pull-to-refresh gesture
             await viewModel.fetchBoxes()
-            isLoggedIn = viewModel.isLoggedIn
         }
     }
-    
+
     private var boxGrid: some View {
-        let columns: [GridItem] = [GridItem(.flexible()), GridItem(.flexible())]
+        let columns = [GridItem(.flexible()), GridItem(.flexible())]
         // LazyVGrid 不提供滚动功能
         return ScrollView {
             LazyVGrid(columns: columns) {
-                ForEach(viewModel.boxes) { box in
+                ForEach(viewModel.filteredBoxes) { box in
                     NavigationLink(destination: BoxDetailView(boxName: box.name, posts: box.posts ?? [])) {
                         BoxView(box: box)
                     }
@@ -69,15 +64,16 @@ struct HomeView: View {
             .padding(10)
         }
     }
-    
+
     private var addBoxButton: some View {
         Button {
-            isAddBoxSheetPresented = true
+            viewModel.isAddBoxSheetPresented = true
         } label: {
             Label("New Box", systemImage: "plus")
                 .fontWeight(.bold)
-                .foregroundStyle(Color.black)
+                .foregroundColor(.black)
                 .padding()
         }
     }
 }
+
