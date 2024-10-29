@@ -49,8 +49,7 @@ extension LoginView {
                 let loginResponse = try JSONDecoder().decode(LoginResponse.self, from: data)
 
                 // Save token and user ID using UserDefaults
-                UserDefaults.standard.set(loginResponse.token, forKey: "jwtToken")
-                UserDefaults.standard.set(loginResponse.userId, forKey: "userId")
+                AuthManager.setAuth(token: loginResponse.token, userId: loginResponse.userId)
             } catch let networkError as NetworkError {
                 alertMessage = networkError.localizedDescription
                 showAlert = true

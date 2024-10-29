@@ -10,7 +10,7 @@ import SwiftUI
 @main
 struct MemoryBoxApp: App {
     // @State private var isLoggedIn = UserDefaults.standard.string(forKey: "jwtToken") != nil
-    // Use @AppStorage to synchronize with UserDefaults automatically
+    // @AppStorage automatically triggers view updates. When the stored value changes, the view re-renders, similar to @State.
     @AppStorage("jwtToken") private var jwtToken: String?
 
     var body: some Scene {

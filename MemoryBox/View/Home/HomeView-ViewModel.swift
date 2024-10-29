@@ -39,7 +39,7 @@ extension HomeView {
                     throw NetworkError.invalidURL
                 }
 
-                guard let token = UserDefaults.standard.string(forKey: "jwtToken") else {
+                guard let token = AuthManager.token else {
                     throw NetworkError.noToken
                 }
 
@@ -57,9 +57,7 @@ extension HomeView {
                 case 200:
                     break
                 case 401:
-                    UserDefaults.standard.removeObject(forKey: "jwtToken")
-                    UserDefaults.standard.removeObject(forKey: "userId")
-                    throw NetworkError.unauthorized
+                    AuthManager.clearAuth()
                 default:
                     throw NetworkError.serverError(statusCode: httpResponse.statusCode)
                 }

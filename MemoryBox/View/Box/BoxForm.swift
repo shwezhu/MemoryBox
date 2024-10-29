@@ -43,22 +43,13 @@ struct BoxForm: View {
                 }
                 ToolbarItem(placement: .confirmationAction) {
                     Button(viewModel.isNewBox ? "Add" : "Update") {
-                        commit()
+                        Task {
+                            try await viewModel.commit()
+                            dismiss()
+                        }
                     }
                     .disabled(!viewModel.isValid)
                 }
-            }
-        }
-    }
-    
-    private func commit() {
-        Task {
-            do {
-                try await viewModel.commit()
-                dismiss()
-            } catch {
-                // Handle error
-                print("Error: \(error.localizedDescription)")
             }
         }
     }
