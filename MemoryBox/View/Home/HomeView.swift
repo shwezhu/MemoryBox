@@ -12,6 +12,8 @@ struct HomeView: View {
 
     var body: some View {
         NavigationStack {
+            // Add contentView in the NavigationStack, avoid layout recalculations caused by view switching.
+            // If the view is not in the NavigationStack, the layout will be recalculated every time the view is switched (e.g., refreshing).
             contentView
                 .navigationTitle("Memory Boxes")
                 .searchable(text: $viewModel.searchText)
