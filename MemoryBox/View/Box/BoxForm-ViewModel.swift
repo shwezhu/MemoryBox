@@ -6,10 +6,6 @@
 //
 
 import Foundation
-//
-//struct NetworkError: Error {
-//    let message: String
-//}
 
 extension BoxForm {
     @Observable
@@ -17,31 +13,32 @@ extension BoxForm {
         var box: BoxPost
         let isNewBox: Bool
         var isLoggedIn = true
-        var error: String? = nil
+        var showAlert = false
+        var alertMessage = ""
+        
+        // 添加输入验证
+        var isValid: Bool {
+            return !box.boxName.isEmpty && box.boxName.count >= 3
+        }
         
         init(box: BoxPost? = nil) {
             self.box = box ?? BoxPost()
             self.isNewBox = box == nil
         }
         
-        var isValid: Bool {
-            !box.boxName.isEmpty
-        }
-        
-        func commit() async throws {
+        func commit() async {
             if isNewBox {
-                try await createBox()
+                await createBox()
             } else {
-                try await updateBox()
+                await updateBox()
             }
         }
         
-        /// guarantee createBox() will run on the main thread.
         @MainActor
-        private func createBox() async throws {
+        private func createBox() async {
             do {
                 guard let url = URL(string: Config.createBoxUrl) else {
-                    throw NetworkError.invalidURL
+                    throw NetworkError.invalidURL 
                 }
                 
                 guard let token = AuthManager.token else {
@@ -68,18 +65,24 @@ extension BoxForm {
                     throw NetworkError.badRequest
                 case 401:
                     AuthManager.clearAuth()
+                    throw NetworkError.unauthorized
+                case 409:
+                    throw NetworkError.conflict
                 default:
-                    throw NetworkError.unknown
+                    throw NetworkError.unknown(message: "Failed to create box, status code\(httpResponse.statusCode)")
                 }
             } catch let networkError as NetworkError {
-                self.error = networkError.localizedDescription
+                // 处理网络错误,提供用户友好的错误信息
+                alertMessage = networkError.errorDescription
+                showAlert = true
             } catch {
-                self.error = error.localizedDescription
+                alertMessage = "An unexpected error occurred. Please try again."
+                showAlert = true
             }
         }
         
         @MainActor
-        private func updateBox() async throws {
+        private func updateBox() async {
             // Implementation for updating an existing box
             // print("Updating box: \(box.name)")
         }

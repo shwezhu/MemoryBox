@@ -32,7 +32,7 @@ extension LoginView {
                 let (data, response) = try await URLSession.shared.data(for: request)
 
                 guard let httpResponse = response as? HTTPURLResponse else {
-                    throw NetworkError.unknown
+                    throw NetworkError.serverError(message: "Failed to login, invalid response.")
                 }
 
                 switch httpResponse.statusCode {
@@ -43,7 +43,7 @@ extension LoginView {
                 case 401:
                     throw NetworkError.invalidCredentials
                 default:
-                    throw NetworkError.serverError(statusCode: httpResponse.statusCode)
+                    throw NetworkError.serverError(message: "Failed to login, status code: \(httpResponse.statusCode)")
                 }
 
                 let loginResponse = try JSONDecoder().decode(LoginResponse.self, from: data)

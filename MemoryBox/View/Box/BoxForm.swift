@@ -44,11 +44,32 @@ struct BoxForm: View {
                 ToolbarItem(placement: .confirmationAction) {
                     Button(viewModel.isNewBox ? "Add" : "Update") {
                         Task {
-                            try await viewModel.commit()
+                            await viewModel.commit()
                             dismiss()
                         }
                     }
                     .disabled(!viewModel.isValid)
+                }
+            }
+            // 添加错误提示弹窗
+            .alert("Error", isPresented: $viewModel.showAlert) {
+                Button("OK", role: .cancel) { }
+            } message: {
+                Text(viewModel.alertMessage)
+            }
+            // 添加输入验证提示
+            .overlay {
+                if !viewModel.box.boxName.isEmpty && viewModel.box.boxName.count < 3 {
+                    VStack {
+                        Text("Box name must be at least 3 characters")
+                            .foregroundColor(.red)
+                            .font(.caption)
+                            .padding()
+                            .background(Color.red.opacity(0.1))
+                            .cornerRadius(8)
+                        Spacer()
+                    }
+                    .padding(.top)
                 }
             }
         }

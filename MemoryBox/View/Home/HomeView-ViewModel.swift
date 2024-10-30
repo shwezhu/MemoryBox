@@ -50,7 +50,7 @@ extension HomeView {
                 let (data, response) = try await URLSession.shared.data(for: request)
 
                 guard let httpResponse = response as? HTTPURLResponse else {
-                    throw NetworkError.unknown
+                    throw NetworkError.serverError(message: "Failed to fetch boxes invalid response.")
                 }
 
                 switch httpResponse.statusCode {
@@ -59,7 +59,7 @@ extension HomeView {
                 case 401:
                     AuthManager.clearAuth()
                 default:
-                    throw NetworkError.serverError(statusCode: httpResponse.statusCode)
+                    throw NetworkError.serverError(message: "Failed to fetch boxes, status code: \(httpResponse.statusCode)")
                 }
 
                 let decoder = JSONDecoder()

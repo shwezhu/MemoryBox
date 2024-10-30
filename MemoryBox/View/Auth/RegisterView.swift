@@ -3,12 +3,7 @@ import SwiftUI
 struct RegisterView: View {
     @Environment(\.dismiss) private var dismiss
     @State private var viewModel = ViewModel()
-    
-    // 控制显示图片选择器的状态
     @State private var showImagePicker = false
-    
-    // 控制显示错误信息的状态
-    @State private var showErrorAlert = false
     
     var body: some View {
         VStack {
@@ -87,12 +82,8 @@ struct RegisterView: View {
             } else {
                 Button {
                     Task {
-                        do {
-                            try await viewModel.createUser()
-                            dismiss()
-                        } catch {
-                            showErrorAlert = true
-                        }
+                        await viewModel.createUser()
+                        dismiss()
                     }
                 } label: {
                     Text("Sign Up")
@@ -122,8 +113,8 @@ struct RegisterView: View {
         .sheet(isPresented: $showImagePicker) {
             ImagePicker(selectedImage: $viewModel.selectedImage)
         }
-        .alert(isPresented: $showErrorAlert) {
-            Alert(title: Text("Error"), message: Text(viewModel.alertMessage ?? "Unknown error"), dismissButton: .default(Text("OK")))
+        .alert(isPresented: $viewModel.showAlert) {
+            Alert(title: Text("Error"), message: Text(viewModel.alertMessage), dismissButton: .default(Text("OK")))
         }
     }
 }
