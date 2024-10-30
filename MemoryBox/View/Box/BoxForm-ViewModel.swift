@@ -72,11 +72,10 @@ extension BoxForm {
                     throw NetworkError.unknown(message: "Failed to create box, status code\(httpResponse.statusCode)")
                 }
             } catch let networkError as NetworkError {
-                // 处理网络错误,提供用户友好的错误信息
                 alertMessage = networkError.errorDescription
                 showAlert = true
             } catch {
-                alertMessage = "An unexpected error occurred. Please try again."
+                alertMessage = error.localizedDescription
                 showAlert = true
             }
         }

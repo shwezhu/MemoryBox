@@ -29,7 +29,7 @@ enum NetworkError: LocalizedError {
         case .noToken:
             return "Token missing. Log in required."
         case .badRequest:
-            return "Invalid request. Check input."
+            return "Bad request. Check input."
         case .invalidURL:
             return "URL is invalid."
         case .invalidResponse:

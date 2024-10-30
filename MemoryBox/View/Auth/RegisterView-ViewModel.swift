@@ -57,9 +57,12 @@ extension RegisterView {
                 ]
                 
                 try await registerUser(with: registrationData)
-            } catch {
+            } catch let networkError as NetworkError {
+                alertMessage = networkError.errorDescription
                 showAlert = true
+            } catch {
                 alertMessage = error.localizedDescription
+                showAlert = true
             }
             
             isLoading = false

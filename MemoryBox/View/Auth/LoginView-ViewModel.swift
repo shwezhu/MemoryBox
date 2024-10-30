@@ -51,10 +51,10 @@ extension LoginView {
                 // Save token and user ID using UserDefaults
                 AuthManager.setAuth(token: loginResponse.token, userId: loginResponse.userId)
             } catch let networkError as NetworkError {
-                alertMessage = networkError.localizedDescription
+                alertMessage = networkError.errorDescription
                 showAlert = true
             } catch {
-                alertMessage = "Login failed: \(error.localizedDescription)"
+                alertMessage = error.localizedDescription
                 showAlert = true
             }
         }

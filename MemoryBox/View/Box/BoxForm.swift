@@ -51,11 +51,9 @@ struct BoxForm: View {
                     .disabled(!viewModel.isValid)
                 }
             }
-            // 添加错误提示弹窗
             .alert(isPresented: $viewModel.showAlert) {
                 Alert(title: Text("Create Box Error"), message: Text(viewModel.alertMessage), dismissButton: .default(Text("OK")))
             }
-            // 添加输入验证提示
             .overlay {
                 if !viewModel.box.boxName.isEmpty && viewModel.box.boxName.count < 3 {
                     VStack {
