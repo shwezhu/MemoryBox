@@ -57,10 +57,8 @@ struct LoginView: View {
             }
             .padding(.vertical, 16)
         }
-        .alert("Login Error", isPresented: $viewModel.showAlert) {
-            Button("OK", role: .cancel) { }
-        } message: {
-            Text(viewModel.alertMessage)
+        .alert(isPresented: $viewModel.showAlert) {
+            Alert(title: Text("Login Error"), message: Text(viewModel.alertMessage), dismissButton: .default(Text("OK")))
         }
     }
 }

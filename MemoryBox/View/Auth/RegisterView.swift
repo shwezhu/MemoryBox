@@ -114,7 +114,7 @@ struct RegisterView: View {
             ImagePicker(selectedImage: $viewModel.selectedImage)
         }
         .alert(isPresented: $viewModel.showAlert) {
-            Alert(title: Text("Error"), message: Text(viewModel.alertMessage), dismissButton: .default(Text("OK")))
+            Alert(title: Text("Register Error"), message: Text(viewModel.alertMessage), dismissButton: .default(Text("OK")))
         }
     }
 }

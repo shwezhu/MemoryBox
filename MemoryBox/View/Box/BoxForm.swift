@@ -52,10 +52,8 @@ struct BoxForm: View {
                 }
             }
             // 添加错误提示弹窗
-            .alert("Error", isPresented: $viewModel.showAlert) {
-                Button("OK", role: .cancel) { }
-            } message: {
-                Text(viewModel.alertMessage)
+            .alert(isPresented: $viewModel.showAlert) {
+                Alert(title: Text("Create Box Error"), message: Text(viewModel.alertMessage), dismissButton: .default(Text("OK")))
             }
             // 添加输入验证提示
             .overlay {
