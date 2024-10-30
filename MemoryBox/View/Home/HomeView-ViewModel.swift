@@ -77,7 +77,7 @@ extension HomeView {
                 }
                 filterBoxes() // Update filtered results
             } catch let networkError as NetworkError {
-                self.error = networkError.localizedDescription
+                self.error = networkError.errorDescription
             } catch {
                 self.error = error.localizedDescription
             }

@@ -12,37 +12,42 @@ struct HomeView: View {
 
     var body: some View {
         NavigationStack {
-            if viewModel.isLoading {
-                ProgressView()
-            } else if let error = viewModel.error {
-                VStack {
-                    Text(error)
-                        .foregroundColor(.red)
-                        .padding()
-                    Button("Retry") {
-                        Task {
-                            await viewModel.fetchBoxes()
-                        }
-                    }
-                    .padding()
+            contentView
+                .navigationTitle("Memory Boxes")
+                .searchable(text: $viewModel.searchText)
+                .sheet(isPresented: $viewModel.isAddBoxSheetPresented) {
+                    AddBoxView()
                 }
-            } else {
-                boxGrid
+                .overlay(alignment: .bottomLeading) {
+                    addBoxButton
+                }
+                .task {
+                    await viewModel.fetchBoxes()
+                }
+                .refreshable {
+                    await viewModel.fetchBoxes()
+                }
+        }
+    }
+
+    @ViewBuilder
+    private var contentView: some View {
+        if viewModel.isLoading {
+            ProgressView()
+        } else if let error = viewModel.error {
+            VStack {
+                Text(error)
+                    .foregroundColor(.red)
+                    .padding()
+                Button("Retry") {
+                    Task {
+                        await viewModel.fetchBoxes()
+                    }
+                }
+                .padding()
             }
-        }
-        .searchable(text: $viewModel.searchText)
-        .navigationTitle("Memory Boxes")
-        .sheet(isPresented: $viewModel.isAddBoxSheetPresented) {
-            AddBoxView()
-        }
-        .overlay(alignment: .bottomLeading) {
-            addBoxButton
-        }
-        .task {
-            await viewModel.fetchBoxes()
-        }
-        .refreshable {
-            await viewModel.fetchBoxes()
+        } else {
+            boxGrid
         }
     }
 
@@ -73,4 +78,5 @@ struct HomeView: View {
         }
     }
 }
+
 
